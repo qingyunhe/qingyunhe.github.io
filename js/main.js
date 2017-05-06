@@ -1,74 +1,106 @@
-$(function() {
-  var $toc = $("#toc");
-  if (!!$toc.length && screen.width > 992 && $('.content').find('h2').length != 0) {
-    $("#toc").tocify({
-      context: '.article-content',
-      theme: 'bootstrap3',
-      selectors: 'h2,h3,h4'
-    });
+/**
+ * Sets up Justified Gallery.
+ */
+if (!!$.prototype.justifiedGallery) {
+  var options = {
+    rowHeight: 140,
+    margins: 4,
+    lastRow: 'justify'
+  };
+  $('.article-gallery').justifiedGallery(options);
+}
 
-    //sticky the toc
-    var $window = $(window),
-      $stickyEl = $('#toc'),
-      elTop = $stickyEl.offset().top;
-    //for page refresh, we can right position the toc
-    $stickyEl.toggleClass('sticky-scroll', elTop > 155);
 
-    //listen the window scroll
-    $window.scroll(function() {
-      elTop = $stickyEl.offset().top;
-      $stickyEl.toggleClass('sticky-scroll', elTop > 155);
-    });
+$(document).ready(function() {
 
-  }
-
-	// image view
-	$('.content img').on('click',function(){
-		window.open($(this).attr('src'),'_blank');
-	});
-
-  // highlight the menu
-  menuHighlight();
-
-  $(window).scroll(function() {
-    if ($(this).scrollTop()) {
-      $('#gotop:hidden').stop(true, true).fadeIn();
-    } else {
-      $('#gotop').stop(true, true).fadeOut();
-    }
+  /**
+   * Shows the responsive navigation menu on mobile.
+   */
+  $("#header > #nav > ul > .icon").click(function() {
+    $("#header > #nav > ul").toggleClass("responsive");
   });
 
-	//  enable ripple on buttons
-	$.material.ripples();
 
-  //this is adapted from http://css-tricks.com/moving-highlight/
-  function menuHighlight() {
-    var originalBG = $(".nav li").css("background-color"),
-      x, y, xy, bgWebKit, bgMoz,
-      lightColor = "rgba(1, 164, 149, 1)",
-      gradientSize = 60;
+  /**
+   * Controls the different versions of  the menu in blog post articles 
+   * for Desktop, tablet and mobile.
+   */
+  if ($(".post").length) {
+    /**
+     * Display the menu if the menu icon is clicked.
+     */
+    var menu = $("#menu");
+    var menu_icon = $("#menu-icon, #menu-icon-tablet");
+    menu_icon.click(function() {
+      if (menu.css('visibility') === 'hidden') {
+        menu.css("visibility", "visible");
+        menu_icon.addClass('active');
+      } else {
+        menu.css("visibility", "hidden");
+        menu_icon.removeClass('active');
+      }
+      return false;
+    });
 
-    $('.nav li')
-      .mousemove(function(e) {
-        x = e.pageX - this.offsetLeft;
-        y = e.pageY - this.offsetTop;
-        xy = x + " " + y;
+    /**
+     * Add a scroll listener to the menu to hide/show the navigation links.
+     */
+    if (menu.length) {
+      $(window).on('scroll', function() {
+        var topDistance = $("#menu > #nav").offset().top;
 
-        bgWebKit = "-webkit-gradient(radial, " + xy + ", 0, " + xy + ", " + gradientSize + ", from(" + lightColor + "), to(rgba(0, 150, 136, 1.0))), " + originalBG;
-        bgMoz = "-moz-radial-gradient(" + x + "px " + y + "px 45deg, circle, " + lightColor + " 0%, rgba(0, 150, 136, 1.0) " + gradientSize + "px)";
+        // hide only the navigation links on desktop
+        if (menu.css('visibility') !== 'hidden' && topDistance < 50) {
+          $("#menu > #nav").show();
+        } else if (menu.css('visibility') !== 'hidden' && topDistance > 100) {
+          $("#menu > #nav").hide();
+        }
 
-        $(this)
-          .css({
-            background: bgWebKit
-          })
-          .css({
-            background: bgMoz
-          });
-
-      }).mouseleave(function() {
-        $(this).css({
-          background: originalBG
-        });
+        // on tablet, hide the navigation icon as well and show a "scroll to top
+        // icon" instead
+        if ( ! $( "#menu-icon" ).is(":visible") && topDistance < 50 ) {
+          $("#menu-icon-tablet").show();
+          $("#top-icon-tablet").hide();
+        } else if (! $( "#menu-icon" ).is(":visible") && topDistance > 100) {
+          $("#menu-icon-tablet").hide();
+          $("#top-icon-tablet").show();
+        }
       });
+    }
+
+    /**
+     * Show mobile navigation menu after scrolling upwards,
+     * hide it again after scrolling downwards.
+     */
+    if ($( "#footer-post").length) {
+      var lastScrollTop = 0;
+      $(window).on('scroll', function() {
+        var topDistance = $(window).scrollTop();
+
+        if (topDistance > lastScrollTop){
+          // downscroll -> show menu
+          $("#footer-post").hide();
+        } else {
+          // upscroll -> hide menu
+          $("#footer-post").show();
+        }
+        lastScrollTop = topDistance;
+
+        // close all submenu's on scroll
+        $("#nav-footer").hide();
+        $("#toc-footer").hide();
+        $("#share-footer").hide();
+
+        // show a "navigation" icon when close to the top of the page, 
+        // otherwise show a "scroll to the top" icon
+        if (topDistance < 50) {
+          $("#actions-footer > ul > #top").hide();
+          $("#actions-footer > ul > #menu").show();
+        } else if (topDistance > 100) {
+          $("#actions-footer > ul > #menu").hide();
+          $("#actions-footer > ul > #top").show();
+        }
+      });
+    }
   }
 });
