@@ -6,29 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://heqingyun.com">
-  <title>基于breakpoint设置状态栏的私有属性从猜想到实现 | 榴莲芒果的开发随笔</title>
+  <title>使用AFNetworking时，应该如何取消网络请求小结？ | 榴莲芒果的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原创声明：本文系本人原创,转载请注明出处。 本文简要记录我在使用breakpoint获取系统状态栏的私有属性，并定制系统状态栏的思路和实现过程.文中所有内容仅代表个人观点，本文对应代码见 https://github.com/qingyunhe/HQYModules，如有疏漏，欢迎与我进行深入浅出的交流 developerqingyun@gmail.com。">
-<meta name="keywords" content="breakpoint,私有属性">
+  <meta name="description" content="原创声明：本文系本人原创,转载请注明出处。 本文简要记录我在设置文本框占位文字颜色过程中的思考并最终实现需求的过程，基于Runtime设置文本框占位文字的颜色， 提出自己的猜想，并予以验证；修复了实现此需求过程中的bug；并封装了文本框占位文字的颜色设置的功能.文中所有内容仅代表个人观点，如有疏漏，欢迎与我进行深入浅出的交流 developerqingyun@gmail.com">
+<meta name="keywords" content="AFNetworking">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于breakpoint设置状态栏的私有属性从猜想到实现">
-<meta property="og:url" content="http://heqingyun.com/2014/02/10/基于breakpoint设置状态栏的私有属性从猜想到实现/index.html">
+<meta property="og:title" content="使用AFNetworking时，应该如何取消网络请求小结？">
+<meta property="og:url" content="http://heqingyun.com/2015/11/15/基于Runtime设置文本框占位文字颜色从猜想到实现 - 副本/index.html">
 <meta property="og:site_name" content="榴莲芒果的开发随笔">
-<meta property="og:description" content="原创声明：本文系本人原创,转载请注明出处。 本文简要记录我在使用breakpoint获取系统状态栏的私有属性，并定制系统状态栏的思路和实现过程.文中所有内容仅代表个人观点，本文对应代码见 https://github.com/qingyunhe/HQYModules，如有疏漏，欢迎与我进行深入浅出的交流 developerqingyun@gmail.com。">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/002-768x139.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/003-768x211.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/004-169x300.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/005-768x649.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/006-768x582.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/007-768x198.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/008-768x277.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/009.png?raw=true">
-<meta property="og:updated_time" content="2017-06-04T02:48:43.335Z">
+<meta property="og:description" content="原创声明：本文系本人原创,转载请注明出处。 本文简要记录我在设置文本框占位文字颜色过程中的思考并最终实现需求的过程，基于Runtime设置文本框占位文字的颜色， 提出自己的猜想，并予以验证；修复了实现此需求过程中的bug；并封装了文本框占位文字的颜色设置的功能.文中所有内容仅代表个人观点，如有疏漏，欢迎与我进行深入浅出的交流 developerqingyun@gmail.com">
+<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true">
+<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/002.png?raw=true">
+<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/003.png?raw=true">
+<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/004.png?raw=true">
+<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/005.png?raw=true">
+<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/006.png?raw=true">
+<meta property="og:updated_time" content="2017-06-04T14:53:15.188Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="基于breakpoint设置状态栏的私有属性从猜想到实现">
-<meta name="twitter:description" content="原创声明：本文系本人原创,转载请注明出处。 本文简要记录我在使用breakpoint获取系统状态栏的私有属性，并定制系统状态栏的思路和实现过程.文中所有内容仅代表个人观点，本文对应代码见 https://github.com/qingyunhe/HQYModules，如有疏漏，欢迎与我进行深入浅出的交流 developerqingyun@gmail.com。">
-<meta name="twitter:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true">
+<meta name="twitter:title" content="使用AFNetworking时，应该如何取消网络请求小结？">
+<meta name="twitter:description" content="原创声明：本文系本人原创,转载请注明出处。 本文简要记录我在设置文本框占位文字颜色过程中的思考并最终实现需求的过程，基于Runtime设置文本框占位文字的颜色， 提出自己的猜想，并予以验证；修复了实现此需求过程中的bug；并封装了文本框占位文字的颜色设置的功能.文中所有内容仅代表个人观点，如有疏漏，欢迎与我进行深入浅出的交流 developerqingyun@gmail.com">
+<meta name="twitter:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true">
   
     <link rel="alternative" href="/atom.xml" title="榴莲芒果的开发随笔" type="application/atom+xml">
   
@@ -146,20 +143,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-基于breakpoint设置状态栏的私有属性从猜想到实现" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-基于Runtime设置文本框占位文字颜色从猜想到实现 - 副本" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      基于breakpoint设置状态栏的私有属性从猜想到实现
+      使用AFNetworking时，应该如何取消网络请求小结？
     </h1>
   
 
         
-        <a href="/2014/02/10/基于breakpoint设置状态栏的私有属性从猜想到实现/" class="archive-article-date">
-  	<time datetime="2014-02-10T15:08:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-02-10</time>
+        <a href="/2015/11/15/基于Runtime设置文本框占位文字颜色从猜想到实现 - 副本/" class="archive-article-date">
+  	<time datetime="2015-11-15T13:16:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-15</time>
 </a>
         
       </header>
@@ -167,30 +164,21 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>原创声明：本文系本人原创,转载请注明出处。</p>
-<p>本文简要记录我在使用<code>breakpoint</code>获取系统状态栏的私有属性，并定制系统状态栏的思路和实现过程.文中所有内容仅代表个人观点，本文对应代码见 <a href="https://github.com/qingyunhe/HQYModules" target="_blank" rel="external">https://github.com/qingyunhe/HQYModules</a>，如有疏漏，欢迎与我进行深入浅出的交流 <a href="developerqingyun@gmail.com">developerqingyun@gmail.com</a>。</p>
-<a id="more"></a>
-<p><code>iOS</code>系统状态栏背景颜色默认为透明色，状态栏默认从左往右依次显示运营商、网络状态、系统时间和电量。如果有项目需要修改这些系统自带设置，我们可以使用<code>breakpoint</code>来获取这些系统默认的属性，然后根据项目需求进行相应的定制。</p>
-<p><strong>收到需求</strong>：修改系统状态栏的运营商、网络状态、系统时间和电量等。</p>
-<p><strong>提出猜想</strong>：系统状态栏的运营商，网络状态，系统时间和电量一般很少作修改，猜想这些属性是系统的私有属性，猜想这些属性应该属于<code>UIApplication</code>对象。</p>
-<p><strong>验证猜想</strong>：进入<code>UIApplication</code>类的头文件中,以<code>StatusBar</code>为关键词进行查找。根据查询结果，系统状态栏相关的属性全部是<code>readonly</code>修饰的，而且系统虽然给我们提供了一个<code>UIStatusBar</code>类，但是系统并没有在这个类中暴露任何属性和API给我们，这就验证了我们的猜想：状态栏的运营商、网络状态等属性是系统的私有属性。</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true" alt=""></p>
-<p>那么下面我们要做的事情就是先通过<code>KVC</code>拿到<code>UIStatusBar</code>类型的对象，然后基于<code>breakpoint</code>查看该对象的所有属性，再去查找我们需要进行相关设置的属性。那么问题又来了：要使用<code>KVC</code>，首先我们得拿到对应的<code>key</code>值，我们怎么知道<code>key</code>值是啥？思路：去<code>UIApplication</code>类的头文件中<code>StatusBar</code>为关键词进行查找。</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/002-768x139.png?raw=true" alt=""></p>
-<p>根据找到的属性的名称，我推测<code>UIStatusBar</code>的对象的名称是<code>statusBar</code>，然后尝试着使用<code>KVC</code>拿到<code>UIStatusBar</code>的对象，并设置<code>UIStatusBar</code>对象的<code>frame</code>。</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/003-768x211.png?raw=true" alt=""></p>
-<p>运行结果如下图：</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/004-169x300.png?raw=true" alt=""></p>
-<p>说明我们猜想正确，可以通过<code>statusBar</code>作为<code>key</code>值使用<code>KVC</code>拿到<code>UIStatusBar</code>对象。下面我们就可以使用<code>breakpoint</code>来查看<code>UIStatusBar</code>对象的所有属性，并拿到相应的属性做相应设置了。从下图中可以看出<code>UIStatusBarBackgroudview</code>没有子控件。</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/005-768x649.png?raw=true" alt=""></p>
-<p>从下图中可以看出<code>UIStatusBarForegroudview</code>中有四个子控件，分别对应网络服务商名称、网络信号、电池电量和系统时间。</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/006-768x582.png?raw=true" alt=""></p>
-<p>下面我们来对这些属性进行修改.先拿到<code>UIStatusBarForegroundView</code>对象。</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/007-768x198.png?raw=true" alt=""></p>
-<p>再对系统状态栏的私有属性进行个性化设置（以网络服务商为例）</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/008-768x277.png?raw=true" alt=""></p>
-<p>运行结果见下图：</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/009.png?raw=true" alt=""></p>
-<p>按照以上过程走下来，我们就完成自定义系统状态栏了（本文结束）。</p>
+<p>本文简要记录我在设置文本框占位文字颜色过程中的思考并最终实现需求的过程，基于Runtime设置文本框占位文字的颜色， 提出自己的猜想，并予以验证；修复了实现此需求过程中的bug；并封装了文本框占位文字的颜色设置的功能.文中所有内容仅代表个人观点，如有疏漏，欢迎与我进行深入浅出的交流 <a href="developerqingyun@gmail.com">developerqingyun@gmail.com</a><br><a id="more"></a><br>系统自带的文本框占位文字颜色默认为黑色，我们经常需要根据项目的个性化需求，来修改文本框中占位文字的颜色。当然实现这个需求的方法有很多种，可以使用富文本属性来设置，也可以使用代理或者通知来设置。本文记录我使用<code>Runtime</code>实现这个需求的思考过程，记录遇到<code>bug</code>并解决<code>bug</code>的过程。</p>
+<p><strong>收到需求</strong>：修改系统文本框中占位文字的颜色。思考：拿到这个需求后，我首先想到的就是去找一个对应的属性来设置文本框中占位文字的颜色，猜测属性名称以<code>place</code>(“占位”的意思)开头，但是当尝试去敲<code>place</code>时候，系统并没有给出相应的提示，说明系统中并不存在这个属性（或者苹果没有把这个属性暴露给开发者）;如果对应的<code>view</code>使用<code>storyboard</code>或者<code>xib</code>描述的，我会再去查找是否有对应的地方能直接设置文本框中占位文字的颜色，然而也没有找到。转换思路：<code>UILable</code>是用于管理文本框的类,我们可以查看<code>UITextField</code>中是否有类似的子类。</p>
+<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true" alt=""></p>
+<p>由上图可以看出<code>UITextField</code>类有一个私有的子类<code>UITextFieldLabel</code>。</p>
+<p><strong>提出猜想</strong>：只要<code>UITextFieldLabel</code>有一个<code>textFieldLabel</code>类似的属性，我们就可以在自定义的文本框中通过<code>self.textFieldLabel.Color</code>来设置文本框占位文字的颜色。验证猜想：我尝试着去<code>UITextField.h</code>中查看它的子类，但是并没有找到<code>UITextFieldLabel</code>这个类，说明<code>UITextFieldLabel</code>是苹果的私有类，我们通过普通途径无法拿到，所以不能根据<code>self.textFieldLabel.Color</code>来设置文本框占位文字的颜色。转换思路：可以通过<code>Runtime</code>来拿到系统的私有属性，再通过<code>KVC</code>来设置相关属性。通过<code>Runtime</code>获取<code>UITextField</code>所有成员变量代码如下图所示：</p>
+<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/002.png?raw=true" alt=""></p>
+<p>根据下图的输出结果，<code>UITextField</code>中共有四个<code>UITextFieldLabel</code>类型的成员变量，显然用于设置文本框占位文字颜色的成员变量是<code>_placeholderLabel</code>。</p>
+<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/003.png?raw=true" alt=""></p>
+<p>下面再通过<code>KVC</code>设置拿到的私有成员变量：</p>
+<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/004.png?raw=true" alt=""></p>
+<p><strong>封装</strong>：为了方便本项目使用及复用，可以把以上代码封装在分类中。为了方便外界使用，直接将以上代码封装在<code>placeholderColor</code>的<code>set</code>方法中，这样外界就可以直接通过点语法设置<code>placeholderColor</code>了，封装的代码如下：</p>
+<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/005.png?raw=true" alt=""></p>
+<p><strong>遇到bug</strong>：当外界先设置文本框占位文字颜色，再设置占位文字的内容时，发现设置的占位文字颜色没有对应的效果。出现<code>bug</code>的原因：<code>UI</code>控件都是懒加载，所以必须先设置占位文字的内容，再设置占位文字的颜色。解决<code>bug</code>：在设置文本框占位文字颜色之前，先判断占位文字是否为空；如果占位文字为空，我们就人为设置占位文字为空格。</p>
+<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/006.png?raw=true" alt=""></p>
+<p>按照以上思路，我就完成基于<code>Runtime</code>设置文本框占位文字的颜色了（本文结束）。</p>
 
       
 
@@ -204,11 +192,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">breakpoint</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">私有属性</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">AFNetworking</a>
         		</li>
       		
 		</ul>
@@ -227,15 +211,20 @@
   
 <nav id="article-nav">
   
-    <a href="/2015/04/05/MySql/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/11/15/使用AFNetworking时，应该如何取消网络请求？/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          MySql
+          使用AFNetworking时，应该如何取消网络请求？
         
       </div>
     </a>
   
+  
+    <a href="/2015/10/05/基于Runtime设置文本框占位文字颜色从猜想到实现/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">基于Runtime设置文本框占位文字颜色从猜想到实现</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
