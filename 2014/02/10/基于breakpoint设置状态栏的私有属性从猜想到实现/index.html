@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://heqingyun.com">
   <title>基于breakpoint设置状态栏的私有属性从猜想到实现 | 榴莲芒果的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原创声明:本文系本人原创,转载请注明出处. 本文简要记录我在使用breakpoint获取系统状态栏的私有属性，并定制系统状态栏的思路和实现过程.文中所有内容仅代表个人观点，本文对应代码见https://github.com/qingyunhe/HQYModules，如有疏漏，欢迎与我进行深入浅出的交流developerqingyun@gmail.com. iOS系统状态栏背景颜色默认为透明色，状态">
+  <meta name="description" content="原创声明:本文系本人原创,转载请注明出处. 本文简要记录我在使用breakpoint获取系统状态栏的私有属性，并定制系统状态栏的思路和实现过程.文中所有内容仅代表个人观点，本文对应代码见https://github.com/qingyunhe/HQYModules，如有疏漏，欢迎与我进行深入浅出的交流developerqingyun@gmail.com。 iOS系统状态栏背景颜色默认为透明色，状态">
 <meta name="keywords" content="breakpoint,私有属性">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于breakpoint设置状态栏的私有属性从猜想到实现">
 <meta property="og:url" content="http://heqingyun.com/2014/02/10/基于breakpoint设置状态栏的私有属性从猜想到实现/index.html">
 <meta property="og:site_name" content="榴莲芒果的开发随笔">
-<meta property="og:description" content="原创声明:本文系本人原创,转载请注明出处. 本文简要记录我在使用breakpoint获取系统状态栏的私有属性，并定制系统状态栏的思路和实现过程.文中所有内容仅代表个人观点，本文对应代码见https://github.com/qingyunhe/HQYModules，如有疏漏，欢迎与我进行深入浅出的交流developerqingyun@gmail.com. iOS系统状态栏背景颜色默认为透明色，状态">
+<meta property="og:description" content="原创声明:本文系本人原创,转载请注明出处. 本文简要记录我在使用breakpoint获取系统状态栏的私有属性，并定制系统状态栏的思路和实现过程.文中所有内容仅代表个人观点，本文对应代码见https://github.com/qingyunhe/HQYModules，如有疏漏，欢迎与我进行深入浅出的交流developerqingyun@gmail.com。 iOS系统状态栏背景颜色默认为透明色，状态">
 <meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true">
-<meta property="og:updated_time" content="2017-06-03T23:55:52.265Z">
+<meta property="og:updated_time" content="2017-06-04T00:15:48.398Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于breakpoint设置状态栏的私有属性从猜想到实现">
-<meta name="twitter:description" content="原创声明:本文系本人原创,转载请注明出处. 本文简要记录我在使用breakpoint获取系统状态栏的私有属性，并定制系统状态栏的思路和实现过程.文中所有内容仅代表个人观点，本文对应代码见https://github.com/qingyunhe/HQYModules，如有疏漏，欢迎与我进行深入浅出的交流developerqingyun@gmail.com. iOS系统状态栏背景颜色默认为透明色，状态">
+<meta name="twitter:description" content="原创声明:本文系本人原创,转载请注明出处. 本文简要记录我在使用breakpoint获取系统状态栏的私有属性，并定制系统状态栏的思路和实现过程.文中所有内容仅代表个人观点，本文对应代码见https://github.com/qingyunhe/HQYModules，如有疏漏，欢迎与我进行深入浅出的交流developerqingyun@gmail.com。 iOS系统状态栏背景颜色默认为透明色，状态">
 <meta name="twitter:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true">
   
     <link rel="alternative" href="/atom.xml" title="榴莲芒果的开发随笔" type="application/atom+xml">
@@ -159,9 +159,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>原创声明:本文系本人原创,转载请注明出处.</p>
-<p>本文简要记录我在使用<code>breakpoint</code>获取系统状态栏的私有属性，并定制系统状态栏的思路和实现过程.文中所有内容仅代表个人观点，本文对应代码见<a href="https://github.com/qingyunhe/HQYModules" target="_blank" rel="external">https://github.com/qingyunhe/HQYModules</a>，如有疏漏，欢迎与我进行深入浅出的交流<a href="developerqingyun@gmail.com">developerqingyun@gmail.com</a>.</p>
-<p>iOS系统状态栏背景颜色默认为透明色，状态栏默认从左往右依次显示运营商、网络状态、系统时间和电量。如果有项目需要修改这些系统自带设置，我们可以使用breakpoint来获取这些系统默认的属性，然后根据项目需求进行相应的定制。</p>
+<p>本文简要记录我在使用<code>breakpoint</code>获取系统状态栏的私有属性，并定制系统状态栏的思路和实现过程.文中所有内容仅代表个人观点，本文对应代码见<a href="https://github.com/qingyunhe/HQYModules" target="_blank" rel="external">https://github.com/qingyunhe/HQYModules</a>，如有疏漏，欢迎与我进行深入浅出的交流<a href="developerqingyun@gmail.com">developerqingyun@gmail.com</a>。</p>
+<p><code>iOS</code>系统状态栏背景颜色默认为透明色，状态栏默认从左往右依次显示运营商、网络状态、系统时间和电量。如果有项目需要修改这些系统自带设置，我们可以使用<code>breakpoint</code>来获取这些系统默认的属性，然后根据项目需求进行相应的定制。</p>
 <p><strong>收到需求</strong>：修改系统状态栏的运营商、网络状态、系统时间和电量等。</p>
+<a id="more"></a>
 <p><strong>提出猜想</strong>：系统状态栏的运营商，网络状态，系统时间和电量一般很少作修改，猜想这些属性是系统的私有属性，猜想这些属性应该属于<code>UIApplication</code>对象。</p>
 <p><strong>验证猜想</strong>：进入<code>UIApplication</code>类的头文件中,以<code>StatusBar</code>为关键词进行查找。根据查询结果，系统状态栏相关的属性全部是<code>readonly</code>修饰的，而且系统虽然给我们提供了一个<code>UIStatusBar</code>类，但是系统并没有在这个类中暴露任何属性和API给我们，这就验证了我们的猜想：状态栏的运营商、网络状态等属性是系统的私有属性。</p>
 <p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true" alt=""></p>
