@@ -6,17 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://heqingyun.com">
-  <title>Tag: MySql | 榴莲芒果的开发随笔</title>
+  <title>基于Runtime设置文本框占位文字颜色从猜想到实现 | 榴莲芒果的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="榴莲芒果的开发随笔 developerqingyun@gmail.com">
-<meta property="og:type" content="website">
-<meta property="og:title" content="榴莲芒果的开发随笔">
-<meta property="og:url" content="http://heqingyun.com/tags/MySql/index.html">
+  <meta name="description" content="原创声明：本文系本人原创,转载请注明出处。 本文简要记录我在设置文本框占位文字颜色过程中的思考并最终实现需求的过程，基于Runtime设置文本框占位文字的颜色， 提出自己的猜想，并予以验证；修复了实现此需求过程中的bug；并封装了文本框占位文字的颜色设置的功能.文中所有内容仅代表个人观点，如有疏漏，欢迎与我进行深入浅出的交流 developerqingyun@gmail.com">
+<meta name="keywords" content="Runtime">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Runtime设置文本框占位文字颜色从猜想到实现">
+<meta property="og:url" content="http://heqingyun.com/2015/10/05/基于Runtime设置文本框占位文字颜色从猜想到实现/index.html">
 <meta property="og:site_name" content="榴莲芒果的开发随笔">
-<meta property="og:description" content="榴莲芒果的开发随笔 developerqingyun@gmail.com">
+<meta property="og:description" content="原创声明：本文系本人原创,转载请注明出处。 本文简要记录我在设置文本框占位文字颜色过程中的思考并最终实现需求的过程，基于Runtime设置文本框占位文字的颜色， 提出自己的猜想，并予以验证；修复了实现此需求过程中的bug；并封装了文本框占位文字的颜色设置的功能.文中所有内容仅代表个人观点，如有疏漏，欢迎与我进行深入浅出的交流 developerqingyun@gmail.com">
+<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true">
+<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/002.png?raw=true">
+<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/003.png?raw=true">
+<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/004.png?raw=true">
+<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/005.png?raw=true">
+<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/006.png?raw=true">
+<meta property="og:updated_time" content="2017-06-04T02:46:23.648Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="榴莲芒果的开发随笔">
-<meta name="twitter:description" content="榴莲芒果的开发随笔 developerqingyun@gmail.com">
+<meta name="twitter:title" content="基于Runtime设置文本框占位文字颜色从猜想到实现">
+<meta name="twitter:description" content="原创声明：本文系本人原创,转载请注明出处。 本文简要记录我在设置文本框占位文字颜色过程中的思考并最终实现需求的过程，基于Runtime设置文本框占位文字的颜色， 提出自己的猜想，并予以验证；修复了实现此需求过程中的bug；并封装了文本框占位文字的颜色设置的功能.文中所有内容仅代表个人观点，如有疏漏，欢迎与我进行深入浅出的交流 developerqingyun@gmail.com">
+<meta name="twitter:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true">
   
     <link rel="alternative" href="/atom.xml" title="榴莲芒果的开发随笔" type="application/atom+xml">
   
@@ -134,60 +143,102 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-基于Runtime设置文本框占位文字颜色从猜想到实现" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/04/05/MySql/" class="archive-article-date">
-  	<time datetime="2015-04-04T19:08:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-04-05</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/04/05/MySql/">MySql</a>
+    <h1 class="article-title" itemprop="name">
+      基于Runtime设置文本框占位文字颜色从猜想到实现
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2015/10/05/基于Runtime设置文本框占位文字颜色从猜想到实现/" class="archive-article-date">
+  	<time datetime="2015-10-05T15:08:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-10-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原创声明：本文系本人原创,转载请注明出处。</p>
+<p>本文简要记录我在设置文本框占位文字颜色过程中的思考并最终实现需求的过程，基于Runtime设置文本框占位文字的颜色， 提出自己的猜想，并予以验证；修复了实现此需求过程中的bug；并封装了文本框占位文字的颜色设置的功能.文中所有内容仅代表个人观点，如有疏漏，欢迎与我进行深入浅出的交流 <a href="developerqingyun@gmail.com">developerqingyun@gmail.com</a><br><a id="more"></a><br>系统自带的文本框占位文字颜色默认为黑色，我们经常需要根据项目的个性化需求，来修改文本框中占位文字的颜色。当然实现这个需求的方法有很多种，可以使用富文本属性来设置，也可以使用代理或者通知来设置。本文记录我使用<code>Runtime</code>实现这个需求的思考过程，记录遇到<code>bug</code>并解决<code>bug</code>的过程。</p>
+<p><strong>收到需求</strong>：修改系统文本框中占位文字的颜色。思考：拿到这个需求后，我首先想到的就是去找一个对应的属性来设置文本框中占位文字的颜色，猜测属性名称以<code>place</code>(“占位”的意思)开头，但是当尝试去敲<code>place</code>时候，系统并没有给出相应的提示，说明系统中并不存在这个属性（或者苹果没有把这个属性暴露给开发者）;如果对应的<code>view</code>使用<code>storyboard</code>或者<code>xib</code>描述的，我会再去查找是否有对应的地方能直接设置文本框中占位文字的颜色，然而也没有找到。转换思路：<code>UILable</code>是用于管理文本框的类,我们可以查看<code>UITextField</code>中是否有类似的子类。</p>
+<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true" alt=""></p>
+<p>由上图可以看出<code>UITextField</code>类有一个私有的子类<code>UITextFieldLabel</code>。</p>
+<p><strong>提出猜想</strong>：只要<code>UITextFieldLabel</code>有一个<code>textFieldLabel</code>类似的属性，我们就可以在自定义的文本框中通过<code>self.textFieldLabel.Color</code>来设置文本框占位文字的颜色。验证猜想：我尝试着去<code>UITextField.h</code>中查看它的子类，但是并没有找到<code>UITextFieldLabel</code>这个类，说明<code>UITextFieldLabel</code>是苹果的私有类，我们通过普通途径无法拿到，所以不能根据<code>self.textFieldLabel.Color</code>来设置文本框占位文字的颜色。转换思路：可以通过<code>Runtime</code>来拿到系统的私有属性，再通过<code>KVC</code>来设置相关属性。通过<code>Runtime</code>获取<code>UITextField</code>所有成员变量代码如下图所示：</p>
+<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/002.png?raw=true" alt=""></p>
+<p>根据下图的输出结果，<code>UITextField</code>中共有四个<code>UITextFieldLabel</code>类型的成员变量，显然用于设置文本框占位文字颜色的成员变量是<code>_placeholderLabel</code>。</p>
+<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/003.png?raw=true" alt=""></p>
+<p>下面再通过<code>KVC</code>设置拿到的私有成员变量：</p>
+<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/004.png?raw=true" alt=""></p>
+<p><strong>封装</strong>：为了方便本项目使用及复用，可以把以上代码封装在分类中。为了方便外界使用，直接将以上代码封装在<code>placeholderColor</code>的<code>set</code>方法中，这样外界就可以直接通过点语法设置<code>placeholderColor</code>了，封装的代码如下：</p>
+<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/005.png?raw=true" alt=""></p>
+<p><strong>遇到bug</strong>：当外界先设置文本框占位文字颜色，再设置占位文字的内容时，发现设置的占位文字颜色没有对应的效果。出现<code>bug</code>的原因：<code>UI</code>控件都是懒加载，所以必须先设置占位文字的内容，再设置占位文字的颜色。解决<code>bug</code>：在设置文本框占位文字颜色之前，先判断占位文字是否为空；如果占位文字为空，我们就人为设置占位文字为空格。</p>
+<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8ERuntime%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E6%A1%86%E5%8D%A0%E4%BD%8D%E6%96%87%E5%AD%97%E9%A2%9C%E8%89%B2%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/006.png?raw=true" alt=""></p>
+<p>按照以上思路，我就完成基于<code>Runtime</code>设置文本框占位文字的颜色了（本文结束）。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Runtime</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/10/05/第二篇博客/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          第二篇博客
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2015/04/05/MySql/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MySql</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+
+  
 
 
           </div>
@@ -210,9 +261,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
