@@ -6,17 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://heqingyun.com">
-  <title>Archives: 2017/6 | 榴莲芒果的开发随笔</title>
+  <title>回忆小学四年级数学题，介绍时间复杂度和空间复杂度 | 榴莲芒果的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="榴莲芒果的开发随笔 developerqingyun@gmail.com">
-<meta property="og:type" content="website">
-<meta property="og:title" content="榴莲芒果的开发随笔">
-<meta property="og:url" content="http://heqingyun.com/archives/2017/06/index.html">
+  <meta name="description" content="原创声明：本文系作者 榴莲芒果 &amp;#x64;&amp;#x65;&amp;#x76;&amp;#101;&amp;#108;&amp;#111;&amp;#112;&amp;#101;&amp;#x72;&amp;#113;&amp;#105;&amp;#x6e;&amp;#x67;&amp;#x79;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#109;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#x6d; 原创，转载请注明出处，谢谢。 本文系《Introducti">
+<meta name="keywords" content="算法导论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="回忆小学四年级数学题，介绍时间复杂度和空间复杂度">
+<meta property="og:url" content="http://heqingyun.com/2016/12/17/回忆小学四年级数学题,引出时间复杂度和空间复杂度/index.html">
 <meta property="og:site_name" content="榴莲芒果的开发随笔">
-<meta property="og:description" content="榴莲芒果的开发随笔 developerqingyun@gmail.com">
+<meta property="og:description" content="原创声明：本文系作者 榴莲芒果 &amp;#x64;&amp;#x65;&amp;#x76;&amp;#101;&amp;#108;&amp;#111;&amp;#112;&amp;#101;&amp;#x72;&amp;#113;&amp;#105;&amp;#x6e;&amp;#x67;&amp;#x79;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#109;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#x6d; 原创，转载请注明出处，谢谢。 本文系《Introducti">
+<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9B%9E%E5%BF%86%E5%B0%8F%E5%AD%A6%E5%9B%9B%E5%B9%B4%E7%BA%A7%E6%95%B0%E5%AD%A6%E9%A2%98,%E5%BC%95%E5%87%BA%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/%E7%AE%97%E6%B3%951%E5%92%8C%E7%AE%97%E6%B3%952%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E5%AF%B9%E6%AF%94.png?raw=true">
+<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9B%9E%E5%BF%86%E5%B0%8F%E5%AD%A6%E5%9B%9B%E5%B9%B4%E7%BA%A7%E6%95%B0%E5%AD%A6%E9%A2%98,%E5%BC%95%E5%87%BA%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/%E5%B8%B8%E8%A7%81%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6.png?raw=true">
+<meta property="og:updated_time" content="2017-06-07T14:05:29.051Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="榴莲芒果的开发随笔">
-<meta name="twitter:description" content="榴莲芒果的开发随笔 developerqingyun@gmail.com">
+<meta name="twitter:title" content="回忆小学四年级数学题，介绍时间复杂度和空间复杂度">
+<meta name="twitter:description" content="原创声明：本文系作者 榴莲芒果 &amp;#x64;&amp;#x65;&amp;#x76;&amp;#101;&amp;#108;&amp;#111;&amp;#112;&amp;#101;&amp;#x72;&amp;#113;&amp;#105;&amp;#x6e;&amp;#x67;&amp;#x79;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#109;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#x6d; 原创，转载请注明出处，谢谢。 本文系《Introducti">
+<meta name="twitter:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9B%9E%E5%BF%86%E5%B0%8F%E5%AD%A6%E5%9B%9B%E5%B9%B4%E7%BA%A7%E6%95%B0%E5%AD%A6%E9%A2%98,%E5%BC%95%E5%87%BA%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/%E7%AE%97%E6%B3%951%E5%92%8C%E7%AE%97%E6%B3%952%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E5%AF%B9%E6%AF%94.png?raw=true">
   
     <link rel="alternative" href="/atom.xml" title="榴莲芒果的开发随笔" type="application/atom+xml">
   
@@ -134,43 +139,124 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-回忆小学四年级数学题,引出时间复杂度和空间复杂度" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      回忆小学四年级数学题，介绍时间复杂度和空间复杂度
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/07/回忆小学四年级数学题,引出时间复杂度和空间复杂度/" class="archive-article-date">
-  	<time datetime="2017-06-07T11:58:44.669Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-07</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+        
+        <a href="/2016/12/17/回忆小学四年级数学题,引出时间复杂度和空间复杂度/" class="archive-article-date">
+  	<time datetime="2016-12-16T16:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原创声明：本文系作者 <strong>榴莲芒果</strong> <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#x6f;&#58;&#x64;&#x65;&#x76;&#101;&#108;&#111;&#112;&#101;&#x72;&#113;&#105;&#x6e;&#x67;&#x79;&#117;&#x6e;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;">&#x64;&#x65;&#x76;&#101;&#108;&#111;&#112;&#101;&#x72;&#113;&#105;&#x6e;&#x67;&#x79;&#117;&#x6e;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;</a> 原创，转载请注明出处，谢谢。</p>
+<p>本文系《Introduction to Algorithms》（中文译为《算法导论》，机械工业出版社）一书读书笔记的第二篇。</p>
+<p>本文回忆小学四年级的一道数学题为例介绍了什么是算法，什么是时间复杂度，什么是空间复杂度。</p>
+<a id="more"></a>
+<h2 id="数据结构与算法的关系"><a href="#数据结构与算法的关系" class="headerlink" title="数据结构与算法的关系"></a>数据结构与算法的关系</h2><p>数据结构与算法不可分割的关系。</p>
+<h2 id="什么是算法"><a href="#什么是算法" class="headerlink" title="什么是算法"></a>什么是算法</h2><p><strong>官方定义</strong>：算法是解决特定问题求解步骤的描述，在计算机中表现为指令的有限序列，并且每条指令表示一个或多个操作。</p>
+<p>记得我小学四年级时候，数学老师布置了一道题目，这道题的题目是：</p>
+<p>1 + 2 + 3 + 4 + ··· + 98 + 99 + 100 = ？</p>
+<p>（我现在还记得这位数学老师的名字叫何宗学，当时貌似班上只有一位同学做出来了，该同学的名字我记得叫黎志华，我后来还以这件事情写了一篇作文，哈哈哈）</p>
+<p>完成这道题目有两种比较容易想到的算法。</p>
+<p><strong>算法1：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">int sum = 0;</div><div class="line">int i;</div><div class="line">int n = 100000;</div><div class="line">for (i = 0; i &lt; n; ++i) &#123;</div><div class="line">	sum = sum + i;</div><div class="line">&#125; </div><div class="line">sum = (1 + n) * n /2;</div></pre></td></tr></table></figure>
+<p><strong>算法2：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">int sum = 0;</div><div class="line">int n = 100000;</div><div class="line">sum = (1 + n) * n /2;</div></pre></td></tr></table></figure>
+<p>当<code>n = 100000</code>时，算法1和算法2消耗的时间分别为<code>0.000300s</code>和<code>0.000015s</code>，虽然消耗的时间有一定的差异，但是这种差异并不足以影响程序的运行。为了扩大这两种算法的差异，可以把<code>n</code>从<code>10万</code>逐渐递增到<code>10亿</code>，比较两种算法消耗的时间，结果如下图：</p>
+<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9B%9E%E5%BF%86%E5%B0%8F%E5%AD%A6%E5%9B%9B%E5%B9%B4%E7%BA%A7%E6%95%B0%E5%AD%A6%E9%A2%98,%E5%BC%95%E5%87%BA%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/%E7%AE%97%E6%B3%951%E5%92%8C%E7%AE%97%E6%B3%952%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E5%AF%B9%E6%AF%94.png?raw=true" alt=""></p>
+<p>如上图所示，随着问题的输入规模增大，算法2相对算法1消耗的时间越少，说明算法2优于算法1。<strong>那么问题来了，程序在计算机上运行时所消耗的时间取决于哪些因素？</strong></p>
+<p>一般情况下程序在计算机上运行时所消耗的时间取决于下列因素:</p>
+<p>1 算法</p>
+<p>2 编译产生的代码质量</p>
+<p>3 问题的输入规模</p>
+<p>4 机器执行指令的速度</p>
+<p>如果抛开计算机硬件和软件的因素，一个程序运行的时间取决于算法的好坏和问题的输入规模.</p>
+<p>上面所举的例子说明要解决同一个问题，<strong>必定</strong>存在着多种算法。这个时候就需要我们对多种不同的算法进行比较，以确定最优的算法。<strong>那么问题来了，什么样的算法才称得上是优秀的算法？</strong>优秀的算法应该具备的两个特点：时间效率高和存储量低（也即算法中定义的变量较少）。评价算法时间效率的维度是时间复杂度。</p>
+<h2 id="什么时间复杂度"><a href="#什么时间复杂度" class="headerlink" title="什么时间复杂度"></a>什么时间复杂度</h2><p><strong>官方定义:</strong>在进行算法分析时候,语句总的执行次数T(n)是问题的输入规模n的函数,T(n)又称为时间频度或语句频度.如果有一个辅助函数f(n),使得当n趋近于无穷大时，T（n)/f(n)的极限值为不等于零的常数，则称f(n)是T(n)的同数量级函数,记作T(n)=Ｏ(f(n)),称Ｏ(f(n))为算法的渐进时间复杂度，简称时间复杂度。<strong>一般情况下，随着输入规模n的增大，T(n)增长最慢的算法为最优算法</strong>。</p>
+<p>在各种不同算法中，若算法中语句执行次数为一个常数，则时间复杂度为O(1).</p>
+<p>时间频度不相同时，时间复杂度有可能相同，如T(n)=n^2+3n+4与T(n)=4n^2+2n+1它们的时间频度不同，但时间复杂度相同，都为O(n2)。</p>
+<p>按数量级递增排列，常见的时间复杂度有：</p>
+<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9B%9E%E5%BF%86%E5%B0%8F%E5%AD%A6%E5%9B%9B%E5%B9%B4%E7%BA%A7%E6%95%B0%E5%AD%A6%E9%A2%98,%E5%BC%95%E5%87%BA%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/%E5%B8%B8%E8%A7%81%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6.png?raw=true" alt=""></p>
+<p>常用的时间复杂度所耗费的时间从小到大依次是：</p>
+<p><code>O(1) &lt; O(logn) &lt; (n) &lt; O(nlogn) &lt; O(n^2) &lt; O(n^3) &lt; O(2^n) &lt; O(n!) &lt; O(n^n)</code></p>
+<p><strong>判断一个算法的效率时，函数中的常数和其它次要项一般可以忽略，而应该关注主项（最高项）的阶数。</strong></p>
+<p><strong>那么问题来了，我们研究算法的时间复杂度到底在研究什么？</strong>研究算法的时间复杂度不是要研究算法确切的执行次数,而是侧重研究算法的输入规模的增长对时间复杂度的影响.研究算法的时间复杂度时,不考虑编程语言的种类,也不考虑程序运行在什么样的硬件上.</p>
+<h2 id="如何分析一个算法的时间复杂度呢？"><a href="#如何分析一个算法的时间复杂度呢？" class="headerlink" title="如何分析一个算法的时间复杂度呢？"></a>如何分析一个算法的时间复杂度呢？</h2><p>用常数1取代运行时间中的所有加法常数。</p>
+<p>在修改后的运行次数函数中，只保留最高阶项。</p>
+<p>如果最高阶项存在且不是1，则去除与这个项相乘的常数。</p>
+<p>得到的最后结果就是大O阶。</p>
+<h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2><p>(全文结束）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">算法导论</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2016/12/17/iOS全屏滑动功能实现原理的猜想及验证/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          iOS全屏滑动功能实现原理的猜想及验证
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2016/12/17/写给实习生们：当你遇到未知属性、方法时第二篇/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">写给实习生们：当你遇到未知属性、方法时第二篇</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+
+  
 
 
           </div>
@@ -193,8 +279,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
