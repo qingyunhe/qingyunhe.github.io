@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://heqingyun.com">
   <title>回忆小学四年级数学题，介绍时间复杂度和空间复杂度 | 榴莲芒果的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原创声明：本文系作者 榴莲芒果 &amp;#x64;&amp;#x65;&amp;#x76;&amp;#101;&amp;#108;&amp;#111;&amp;#112;&amp;#101;&amp;#x72;&amp;#113;&amp;#105;&amp;#x6e;&amp;#x67;&amp;#x79;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#109;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#x6d; 原创，转载请注明出处，谢谢。 本文系《Introducti">
+  <meta name="description" content="原创声明：本文系作者 榴莲芒果 &amp;#100;&amp;#101;&amp;#x76;&amp;#x65;&amp;#108;&amp;#111;&amp;#112;&amp;#101;&amp;#114;&amp;#x71;&amp;#105;&amp;#110;&amp;#103;&amp;#121;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#x67;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#108;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109; 原创，转载请注明出处，谢谢。 本文系《Introduc">
 <meta name="keywords" content="算法导论">
 <meta property="og:type" content="article">
 <meta property="og:title" content="回忆小学四年级数学题，介绍时间复杂度和空间复杂度">
 <meta property="og:url" content="http://heqingyun.com/2016/12/17/回忆小学四年级数学题,引出时间复杂度和空间复杂度/index.html">
 <meta property="og:site_name" content="榴莲芒果的开发随笔">
-<meta property="og:description" content="原创声明：本文系作者 榴莲芒果 &amp;#x64;&amp;#x65;&amp;#x76;&amp;#101;&amp;#108;&amp;#111;&amp;#112;&amp;#101;&amp;#x72;&amp;#113;&amp;#105;&amp;#x6e;&amp;#x67;&amp;#x79;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#109;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#x6d; 原创，转载请注明出处，谢谢。 本文系《Introducti">
+<meta property="og:description" content="原创声明：本文系作者 榴莲芒果 &amp;#100;&amp;#101;&amp;#x76;&amp;#x65;&amp;#108;&amp;#111;&amp;#112;&amp;#101;&amp;#114;&amp;#x71;&amp;#105;&amp;#110;&amp;#103;&amp;#121;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#x67;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#108;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109; 原创，转载请注明出处，谢谢。 本文系《Introduc">
 <meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9B%9E%E5%BF%86%E5%B0%8F%E5%AD%A6%E5%9B%9B%E5%B9%B4%E7%BA%A7%E6%95%B0%E5%AD%A6%E9%A2%98,%E5%BC%95%E5%87%BA%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/%E7%AE%97%E6%B3%951%E5%92%8C%E7%AE%97%E6%B3%952%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E5%AF%B9%E6%AF%94.png?raw=true">
 <meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9B%9E%E5%BF%86%E5%B0%8F%E5%AD%A6%E5%9B%9B%E5%B9%B4%E7%BA%A7%E6%95%B0%E5%AD%A6%E9%A2%98,%E5%BC%95%E5%87%BA%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/%E5%B8%B8%E8%A7%81%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6.png?raw=true">
-<meta property="og:updated_time" content="2017-06-07T14:05:29.051Z">
+<meta property="og:updated_time" content="2017-06-07T14:33:36.137Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="回忆小学四年级数学题，介绍时间复杂度和空间复杂度">
-<meta name="twitter:description" content="原创声明：本文系作者 榴莲芒果 &amp;#x64;&amp;#x65;&amp;#x76;&amp;#101;&amp;#108;&amp;#111;&amp;#112;&amp;#101;&amp;#x72;&amp;#113;&amp;#105;&amp;#x6e;&amp;#x67;&amp;#x79;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#109;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#x6d; 原创，转载请注明出处，谢谢。 本文系《Introducti">
+<meta name="twitter:description" content="原创声明：本文系作者 榴莲芒果 &amp;#100;&amp;#101;&amp;#x76;&amp;#x65;&amp;#108;&amp;#111;&amp;#112;&amp;#101;&amp;#114;&amp;#x71;&amp;#105;&amp;#110;&amp;#103;&amp;#121;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#x67;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#108;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109; 原创，转载请注明出处，谢谢。 本文系《Introduc">
 <meta name="twitter:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9B%9E%E5%BF%86%E5%B0%8F%E5%AD%A6%E5%9B%9B%E5%B9%B4%E7%BA%A7%E6%95%B0%E5%AD%A6%E9%A2%98,%E5%BC%95%E5%87%BA%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/%E7%AE%97%E6%B3%951%E5%92%8C%E7%AE%97%E6%B3%952%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E5%AF%B9%E6%AF%94.png?raw=true">
   
     <link rel="alternative" href="/atom.xml" title="榴莲芒果的开发随笔" type="application/atom+xml">
@@ -159,7 +159,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>原创声明：本文系作者 <strong>榴莲芒果</strong> <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#x6f;&#58;&#x64;&#x65;&#x76;&#101;&#108;&#111;&#112;&#101;&#x72;&#113;&#105;&#x6e;&#x67;&#x79;&#117;&#x6e;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;">&#x64;&#x65;&#x76;&#101;&#108;&#111;&#112;&#101;&#x72;&#113;&#105;&#x6e;&#x67;&#x79;&#117;&#x6e;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;</a> 原创，转载请注明出处，谢谢。</p>
+        <p>原创声明：本文系作者 <strong>榴莲芒果</strong> <a href="&#109;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#100;&#101;&#x76;&#x65;&#108;&#111;&#112;&#101;&#114;&#x71;&#105;&#110;&#103;&#121;&#117;&#x6e;&#x40;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#100;&#101;&#x76;&#x65;&#108;&#111;&#112;&#101;&#114;&#x71;&#105;&#110;&#103;&#121;&#117;&#x6e;&#x40;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a> 原创，转载请注明出处，谢谢。</p>
 <p>本文系《Introduction to Algorithms》（中文译为《算法导论》，机械工业出版社）一书读书笔记的第二篇。</p>
 <p>本文回忆小学四年级的一道数学题为例介绍了什么是算法，什么是时间复杂度，什么是空间复杂度。</p>
 <a id="more"></a>
@@ -182,7 +182,7 @@
 <p>3 问题的输入规模</p>
 <p>4 机器执行指令的速度</p>
 <p>如果抛开计算机硬件和软件的因素，一个程序运行的时间取决于算法的好坏和问题的输入规模.</p>
-<p>上面所举的例子说明要解决同一个问题，<strong>必定</strong>存在着多种算法。这个时候就需要我们对多种不同的算法进行比较，以确定最优的算法。<strong>那么问题来了，什么样的算法才称得上是优秀的算法？</strong>优秀的算法应该具备的两个特点：时间效率高和存储量低（也即算法中定义的变量较少）。评价算法时间效率的维度是时间复杂度。</p>
+<p>上面所举的例子说明要解决同一个问题，<strong>必定</strong>存在着多种算法。这个时候就需要我们对多种不同的算法进行比较，以确定最优的算法。<strong>那么问题来了，什么样的算法才称得上是优秀的算法？</strong>优秀的算法应该具备的两个特点：时间效率高和存储量低。评价算法时间效率的维度是时间复杂度。</p>
 <h2 id="什么时间复杂度"><a href="#什么时间复杂度" class="headerlink" title="什么时间复杂度"></a>什么时间复杂度</h2><p><strong>官方定义:</strong>在进行算法分析时候,语句总的执行次数T(n)是问题的输入规模n的函数,T(n)又称为时间频度或语句频度.如果有一个辅助函数f(n),使得当n趋近于无穷大时，T（n)/f(n)的极限值为不等于零的常数，则称f(n)是T(n)的同数量级函数,记作T(n)=Ｏ(f(n)),称Ｏ(f(n))为算法的渐进时间复杂度，简称时间复杂度。<strong>一般情况下，随着输入规模n的增大，T(n)增长最慢的算法为最优算法</strong>。</p>
 <p>在各种不同算法中，若算法中语句执行次数为一个常数，则时间复杂度为O(1).</p>
 <p>时间频度不相同时，时间复杂度有可能相同，如T(n)=n^2+3n+4与T(n)=4n^2+2n+1它们的时间频度不同，但时间复杂度相同，都为O(n2)。</p>
@@ -196,7 +196,11 @@
 <p>在修改后的运行次数函数中，只保留最高阶项。</p>
 <p>如果最高阶项存在且不是1，则去除与这个项相乘的常数。</p>
 <p>得到的最后结果就是大O阶。</p>
-<h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2><p>(全文结束）</p>
+<h2 id="最好情况与平均情况"><a href="#最好情况与平均情况" class="headerlink" title="最好情况与平均情况"></a>最好情况与平均情况</h2><p>例如我们查找一个有n个随机数字数组中的某个数字，最好的情况是第一个数字就是该数字，此时算法的时间复杂度为O(1)；但也有可能这个数字就在最后一个位置，那么此时时间复杂度为O(n)。</p>
+<p>在企业开发中，最坏情况是最重要的需求，除非特别指定，运行时间都是指最坏情况的运行时间。</p>
+<h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2><p><strong>官方定义:</strong>算法的空间复杂度通过计算算法所需的存储空间实现，算法的空间复杂度的计算公式记作：S(n)=O(f(n))，其中，n为问题的规模，f(n)为语句关于n所占存储空间的函数。</p>
+<p><strong>空间换时间：</strong>例如要判断某年是不是闰年，可以写一个算法，把年份作为参数，通过这个算法得到该年份是否为闰年；还事先建立一个有很很多个年份（例如2014年到2100年）为元素的数组，然后把所有的年份按下标的数字对应，如果是闰年，则此数组元素的值是1，如果不是元素的值则为0，然后根据数组元素时1还是0来判断该年份是否是闰年。一般讲的复杂度都是在讲时间复杂度。</p>
+<p>(全文结束）</p>
 
       
 
@@ -229,18 +233,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2016/12/17/iOS全屏滑动功能实现原理的猜想及验证/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/12/17/线性表/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          iOS全屏滑动功能实现原理的猜想及验证
+          第二篇博客
         
       </div>
     </a>
   
   
-    <a href="/2016/12/17/写给实习生们：当你遇到未知属性、方法时第二篇/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">写给实习生们：当你遇到未知属性、方法时第二篇</div>
+    <a href="/2015/11/18/iOS网络状态监测及跳转到系统的设置页面/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iOS网络状态监测及跳转到系统的设置页面</div>
       <i class="icon-circle-right"></i>
     </a>
   
