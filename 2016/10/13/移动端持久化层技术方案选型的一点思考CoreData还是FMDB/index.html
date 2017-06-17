@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://heqingyun.com">
-  <title>Archives: 2017/6 | 榴莲芒果的开发随笔</title>
+  <title>移动端持久化层技术方案选型的一点思考:CoreData还是FMDB? | 榴莲芒果的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="榴莲芒果的开发随笔 developerqingyun@gmail.com">
-<meta property="og:type" content="website">
-<meta property="og:title" content="榴莲芒果的开发随笔">
-<meta property="og:url" content="http://heqingyun.com/archives/2017/06/index.html">
+  <meta name="description" content="原创声明：本文系作者 榴莲芒果 &amp;#100;&amp;#x65;&amp;#x76;&amp;#x65;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#x65;&amp;#114;&amp;#x71;&amp;#105;&amp;#x6e;&amp;#x67;&amp;#121;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#109; 原创，转载请注明出处，谢谢。 本文简要介绍了CoreDa">
+<meta name="keywords" content="持久化 CoreData FMDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端持久化层技术方案选型的一点思考:CoreData还是FMDB?">
+<meta property="og:url" content="http://heqingyun.com/2016/10/13/移动端持久化层技术方案选型的一点思考CoreData还是FMDB/index.html">
 <meta property="og:site_name" content="榴莲芒果的开发随笔">
-<meta property="og:description" content="榴莲芒果的开发随笔 developerqingyun@gmail.com">
+<meta property="og:description" content="原创声明：本文系作者 榴莲芒果 &amp;#100;&amp;#x65;&amp;#x76;&amp;#x65;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#x65;&amp;#114;&amp;#x71;&amp;#105;&amp;#x6e;&amp;#x67;&amp;#121;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#109; 原创，转载请注明出处，谢谢。 本文简要介绍了CoreDa">
+<meta property="og:updated_time" content="2017-06-17T08:03:55.187Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="榴莲芒果的开发随笔">
-<meta name="twitter:description" content="榴莲芒果的开发随笔 developerqingyun@gmail.com">
+<meta name="twitter:title" content="移动端持久化层技术方案选型的一点思考:CoreData还是FMDB?">
+<meta name="twitter:description" content="原创声明：本文系作者 榴莲芒果 &amp;#100;&amp;#x65;&amp;#x76;&amp;#x65;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#x65;&amp;#114;&amp;#x71;&amp;#105;&amp;#x6e;&amp;#x67;&amp;#121;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#109; 原创，转载请注明出处，谢谢。 本文简要介绍了CoreDa">
   
     <link rel="alternative" href="/atom.xml" title="榴莲芒果的开发随笔" type="application/atom+xml">
   
@@ -134,43 +136,92 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-移动端持久化层技术方案选型的一点思考CoreData还是FMDB" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      移动端持久化层技术方案选型的一点思考:CoreData还是FMDB?
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/17/移动端持久化技术方案选型的思考/" class="archive-article-date">
-  	<time datetime="2017-06-17T07:54:15.773Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-17</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+        
+        <a href="/2016/10/13/移动端持久化层技术方案选型的一点思考CoreData还是FMDB/" class="archive-article-date">
+  	<time datetime="2016-10-12T17:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原创声明：本文系作者 <strong>榴莲芒果</strong> <a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#100;&#x65;&#x76;&#x65;&#108;&#x6f;&#x70;&#x65;&#114;&#x71;&#105;&#x6e;&#x67;&#121;&#117;&#x6e;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#100;&#x65;&#x76;&#x65;&#108;&#x6f;&#x70;&#x65;&#114;&#x71;&#105;&#x6e;&#x67;&#121;&#117;&#x6e;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a> 原创，转载请注明出处，谢谢。</p>
+<p>本文简要介绍了<code>CoreData</code>的基本概念，对比了<code>CoreData</code>和<code>FMDB</code>对<code>100万</code>条数据进行<code>CRUD</code>操作的耗时，在该维度上对<code>CoreData</code>和<code>FMDB</code>的性能进行了对比，并提出了我自己在移动端持久化层技术方案选型时考虑的几个因素。</p>
+<a id="more"></a>
+<h2 id="写在开篇"><a href="#写在开篇" class="headerlink" title="写在开篇"></a>写在开篇</h2><h3 id="首先-CoreData不是数据库"><a href="#首先-CoreData不是数据库" class="headerlink" title="首先,CoreData不是数据库!!!"></a>首先,CoreData不是数据库!!!</h3><p>100万条数据使用FMDB 57.8M   CoreData 57.9M<br>不同之处在于FMDB会生 .db 文件,而CoreData还会生成studyCoreData.sqlite-shm和studyCoreData.sqlite-wal文件.</p>
+<p>存储位置不同:FMDB  Library/Caches文件夹下<br>    CoreData 存储在Documents文件夹下<br>所以在使用不同的持久化方案时候,清除沙盒中的数据库文件时候传入的路径不同.</p>
+<p>(全文结束）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">持久化 CoreData FMDB</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2016/12/17/写给实习生们：当你遇到未知属性、方法时第二篇/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          写给实习生们：当你遇到未知属性、方法时第二篇
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2015/11/18/iOS网络状态监测及跳转到系统的设置页面/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iOS网络状态监测及跳转到系统的设置页面</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+
+  
 
 
           </div>
@@ -193,8 +244,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
