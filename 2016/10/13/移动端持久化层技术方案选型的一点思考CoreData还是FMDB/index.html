@@ -6,20 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://heqingyun.com">
-  <title>移动端持久化层技术方案选型的一点思考：CoreData还是FMDB? | 榴莲芒果的开发随笔</title>
+  <title>移动端持久化层技术方案选型的一点思考：Core Data还是FMDB? | 榴莲芒果的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原创声明：本文系作者 榴莲芒果 &amp;#100;&amp;#x65;&amp;#118;&amp;#x65;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#101;&amp;#114;&amp;#x71;&amp;#105;&amp;#x6e;&amp;#x67;&amp;#x79;&amp;#x75;&amp;#x6e;&amp;#64;&amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#109; 原创，转载请注明出处，谢谢。 本文简要介绍了CoreData">
-<meta name="keywords" content="持久化 CoreData FMDB">
+  <meta name="description" content="原创声明：本文系作者 榴莲芒果 &amp;#100;&amp;#x65;&amp;#x76;&amp;#x65;&amp;#108;&amp;#111;&amp;#x70;&amp;#x65;&amp;#x72;&amp;#x71;&amp;#x69;&amp;#x6e;&amp;#x67;&amp;#x79;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#x6d; 原创，转载请注明出处，谢谢。 本文简要介绍了Core Da">
+<meta name="keywords" content="持久化 Core Data FMDB">
 <meta property="og:type" content="article">
-<meta property="og:title" content="移动端持久化层技术方案选型的一点思考：CoreData还是FMDB?">
+<meta property="og:title" content="移动端持久化层技术方案选型的一点思考：Core Data还是FMDB?">
 <meta property="og:url" content="http://heqingyun.com/2016/10/13/移动端持久化层技术方案选型的一点思考CoreData还是FMDB/index.html">
 <meta property="og:site_name" content="榴莲芒果的开发随笔">
-<meta property="og:description" content="原创声明：本文系作者 榴莲芒果 &amp;#100;&amp;#x65;&amp;#118;&amp;#x65;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#101;&amp;#114;&amp;#x71;&amp;#105;&amp;#x6e;&amp;#x67;&amp;#x79;&amp;#x75;&amp;#x6e;&amp;#64;&amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#109; 原创，转载请注明出处，谢谢。 本文简要介绍了CoreData">
+<meta property="og:description" content="原创声明：本文系作者 榴莲芒果 &amp;#100;&amp;#x65;&amp;#x76;&amp;#x65;&amp;#108;&amp;#111;&amp;#x70;&amp;#x65;&amp;#x72;&amp;#x71;&amp;#x69;&amp;#x6e;&amp;#x67;&amp;#x79;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#x6d; 原创，转载请注明出处，谢谢。 本文简要介绍了Core Da">
 <meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B1%82%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E9%80%89%E5%9E%8B%E7%9A%84%E4%B8%80%E7%82%B9%E6%80%9D%E8%80%83%20CoreData%E8%BF%98%E6%98%AFFMDB/%E6%88%91%E5%A5%BD%E5%83%8F%E5%8F%91%E7%8E%B0%E4%BA%86%E4%BB%80%E4%B9%88.jpeg?raw=true">
-<meta property="og:updated_time" content="2017-06-17T08:26:56.356Z">
+<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B1%82%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E9%80%89%E5%9E%8B%E7%9A%84%E4%B8%80%E7%82%B9%E6%80%9D%E8%80%83%20CoreData%E8%BF%98%E6%98%AFFMDB/%E7%99%BE%E4%B8%87%E6%95%B0%E6%8D%AECoreData%E4%B8%8EFMDB%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94.png?raw=true">
+<meta property="og:updated_time" content="2017-06-17T15:38:11.084Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="移动端持久化层技术方案选型的一点思考：CoreData还是FMDB?">
-<meta name="twitter:description" content="原创声明：本文系作者 榴莲芒果 &amp;#100;&amp;#x65;&amp;#118;&amp;#x65;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#101;&amp;#114;&amp;#x71;&amp;#105;&amp;#x6e;&amp;#x67;&amp;#x79;&amp;#x75;&amp;#x6e;&amp;#64;&amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#109; 原创，转载请注明出处，谢谢。 本文简要介绍了CoreData">
+<meta name="twitter:title" content="移动端持久化层技术方案选型的一点思考：Core Data还是FMDB?">
+<meta name="twitter:description" content="原创声明：本文系作者 榴莲芒果 &amp;#100;&amp;#x65;&amp;#x76;&amp;#x65;&amp;#108;&amp;#111;&amp;#x70;&amp;#x65;&amp;#x72;&amp;#x71;&amp;#x69;&amp;#x6e;&amp;#x67;&amp;#x79;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#x6d; 原创，转载请注明出处，谢谢。 本文简要介绍了Core Da">
 <meta name="twitter:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B1%82%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E9%80%89%E5%9E%8B%E7%9A%84%E4%B8%80%E7%82%B9%E6%80%9D%E8%80%83%20CoreData%E8%BF%98%E6%98%AFFMDB/%E6%88%91%E5%A5%BD%E5%83%8F%E5%8F%91%E7%8E%B0%E4%BA%86%E4%BB%80%E4%B9%88.jpeg?raw=true">
   
     <link rel="alternative" href="/atom.xml" title="榴莲芒果的开发随笔" type="application/atom+xml">
@@ -145,7 +146,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      移动端持久化层技术方案选型的一点思考：CoreData还是FMDB?
+      移动端持久化层技术方案选型的一点思考：Core Data还是FMDB?
     </h1>
   
 
@@ -158,13 +159,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>原创声明：本文系作者 <strong>榴莲芒果</strong> <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#58;&#100;&#x65;&#118;&#x65;&#108;&#x6f;&#x70;&#101;&#114;&#x71;&#105;&#x6e;&#x67;&#x79;&#x75;&#x6e;&#64;&#103;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;">&#100;&#x65;&#118;&#x65;&#108;&#x6f;&#x70;&#101;&#114;&#x71;&#105;&#x6e;&#x67;&#x79;&#x75;&#x6e;&#64;&#103;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;</a> 原创，转载请注明出处，谢谢。</p>
-<p>本文简要介绍了<code>CoreData</code>的基本概念，对比了<code>CoreData</code>和<code>FMDB</code>对<code>100万</code>条数据进行<code>CRUD</code>操作的耗时，在该维度上对<code>CoreData</code>和<code>FMDB</code>的性能进行了对比，并提出了我自己在移动端持久化层技术方案选型时考虑的几个因素。</p>
+        <p>原创声明：本文系作者 <strong>榴莲芒果</strong> <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#100;&#x65;&#x76;&#x65;&#108;&#111;&#x70;&#x65;&#x72;&#x71;&#x69;&#x6e;&#x67;&#x79;&#117;&#x6e;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#100;&#x65;&#x76;&#x65;&#108;&#111;&#x70;&#x65;&#x72;&#x71;&#x69;&#x6e;&#x67;&#x79;&#117;&#x6e;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a> 原创，转载请注明出处，谢谢。</p>
+<p>本文简要介绍了<code>Core Data</code>的基本概念，对比了<code>Core Data</code>和<code>FMDB</code>对<code>100万</code>条数据进行<code>CRUD</code>操作的耗时，在该维度上对<code>Core Data</code>和<code>FMDB</code>的性能进行了对比，并提出了我自己在移动端持久化层技术方案选型时考虑的几个因素。</p>
 <a id="more"></a>
-<h2 id="写在开篇"><a href="#写在开篇" class="headerlink" title="写在开篇"></a>写在开篇</h2><p>想写一篇关于移动端持久化层几种方案的文章已经很久了，这次终于下决心写一下了。写之前我也查阅了相关的技术文章，圈内某位大V曾经写过一篇关于<code>CoreData</code>的文章，其中引用一张图，该图对比了<code>Realm</code>、<code>CoreData</code>、<code>FMDB</code>、<code>SQLite</code>等主流持久化方案查询功能的性能。这张图中显示<code>Realm</code>的查询性能明显优于其它几种方案，当然这张图也是<code>Realm</code>发出来的，我好像发现了什么。。。</p>
+<h2 id="写在开篇"><a href="#写在开篇" class="headerlink" title="写在开篇"></a>写在开篇</h2><p>想写一篇关于移动端持久化层几种方案的文章已经很久了，这次终于下决心写一下了。写之前我也查阅了相关的技术文章，圈内某位大V曾经写过一篇关于<code>Core Data</code>的文章，其中引用一张图，该图对比了<code>Realm</code>、<code>Core Data</code>、<code>FMDB</code>、<code>SQLite</code>等主流持久化方案查询功能的性能。这张图中显示<code>Realm</code>的查询性能明显优于其它几种方案，当然这张图也是<code>Realm</code>发出来的，我好像发现了什么。。。</p>
 <p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B1%82%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E9%80%89%E5%9E%8B%E7%9A%84%E4%B8%80%E7%82%B9%E6%80%9D%E8%80%83%20CoreData%E8%BF%98%E6%98%AFFMDB/%E6%88%91%E5%A5%BD%E5%83%8F%E5%8F%91%E7%8E%B0%E4%BA%86%E4%BB%80%E4%B9%88.jpeg?raw=true" alt=""></p>
-<h3 id="首先-CoreData不是数据库"><a href="#首先-CoreData不是数据库" class="headerlink" title="首先,CoreData不是数据库!!!"></a>首先,CoreData不是数据库!!!</h3><p>100万条数据使用FMDB 57.8M   CoreData 57.9M<br>不同之处在于FMDB会生 .db 文件,而CoreData还会生成studyCoreData.sqlite-shm和studyCoreData.sqlite-wal文件.</p>
-<p>存储位置不同:FMDB  Library/Caches文件夹下<br>    CoreData 存储在Documents文件夹下<br>所以在使用不同的持久化方案时候,清除沙盒中的数据库文件时候传入的路径不同.</p>
+<h2 id="Core-Data不是数据库"><a href="#Core-Data不是数据库" class="headerlink" title="Core Data不是数据库"></a>Core Data不是数据库</h2><p><code>Core Data</code>是<code>iOS5</code>之后出现的<code>Cocoa</code>平台上用来管理模型层数据和数据持久化的一个<code>ORM</code>框架，它提供了对象-关系映射的功能，即能够将<code>OC</code>对象映射为数据保存在<code>SQLite</code>数据库文件中，也能够将保存在数据库中的数据映射成<code>OC</code>对象。在使用<code>Core Data</code>操作数据时，不需要编写任何<code>SQL</code>语句,和<code>Java Web</code>中常用的持久层框架<code>Hibernate</code>有类似之处。关于<code>Core Data</code>框架的使用不是本文讨论的重点，该框架的使用在诸多技术博客中都有详尽的介绍。</p>
+<h2 id="Core-Data和FMDB的CRUD操作性能对比"><a href="#Core-Data和FMDB的CRUD操作性能对比" class="headerlink" title="Core Data和FMDB的CRUD操作性能对比"></a>Core Data和FMDB的CRUD操作性能对比</h2><p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%8C%81%E4%B9%85%E5%8C%96%E5%B1%82%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E9%80%89%E5%9E%8B%E7%9A%84%E4%B8%80%E7%82%B9%E6%80%9D%E8%80%83%20CoreData%E8%BF%98%E6%98%AFFMDB/%E7%99%BE%E4%B8%87%E6%95%B0%E6%8D%AECoreData%E4%B8%8EFMDB%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94.png?raw=true" alt=""></p>
+<h2 id="Core-Data和FMDB其它方面的对比及技术选型"><a href="#Core-Data和FMDB其它方面的对比及技术选型" class="headerlink" title="Core Data和FMDB其它方面的对比及技术选型"></a>Core Data和FMDB其它方面的对比及技术选型</h2><p>1 <code>Core Data</code>是框架，<code>FMDB</code>是将<code>SQLite</code>封装好的第三方库。</p>
+<p>2 <code>Core Data</code>和<code>FMDB</code>两种方案生成的数据库文件及相关文件占用的内存空间不同。</p>
+<p>经过我的测试，插入100万条数据（每条数据3个字段），使用<code>FMDB</code>生成的<code>.db</code>文件所占内存空间为57.8M，使用<code>Core Data</code>生成的<code>.sqlite</code>文件所占内存间为57.9M。不同之处在于，使用<code>FMDB</code>时，只会生<code>.db</code>文件；而使用<code>Core Data</code>时候，除了生成<code>.sqlite</code>文件之外，还会生成<code>.sqlite-shm</code>和<code>.sqlite-wal</code>文件,其中<code>.sqlite-shm</code>文件所占内存空间为131kb，而<code>.sqlite-wal</code>文件所占内存空间为58.6M。<strong>所以从占用移动设备内存空间更小的维度上比较，应选择<code>FMDB</code>。</strong></p>
+<p>3 <code>Core Data</code>和<code>FMDB</code>两种方案生成的数据库文件及相关文件在内存中存储的位置不同。</p>
+<p>使用<code>Core Data</code>时，生成的<code>.sqlite</code>、<code>.sqlite-shm</code>和<code>.sqlite-wal</code>文件存储应用沙盒的<code>Documents</code>路径下，而使用<code>FMDB</code>时，生成的<code>.db</code>文件存储应用沙盒的<code>Library/Caches</code>文件路径下。<strong>所以在使用不同的持久化方案时,如果要清除沙盒中的数据库文件，传入的数据库文件的存储路径是不相同的。</strong></p>
+<p>4 <code>Core Data</code>和<code>FMDB</code>两种方案生成的数据库文件表结构不同。</p>
 <p>(全文结束）</p>
 
       
@@ -179,7 +186,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">持久化 CoreData FMDB</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">持久化 Core Data FMDB</a>
         		</li>
       		
 		</ul>
