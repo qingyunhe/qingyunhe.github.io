@@ -6,26 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://heqingyun.com">
-  <title>写给实习生们:当你遇到未知属性、方法时第一篇 | 榴莲芒果的开发随笔</title>
+  <title>Archives: 2017 | 榴莲芒果的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原创声明：本文系作者 榴莲芒果 &amp;#x64;&amp;#x65;&amp;#118;&amp;#x65;&amp;#x6c;&amp;#x6f;&amp;#112;&amp;#x65;&amp;#114;&amp;#x71;&amp;#105;&amp;#110;&amp;#103;&amp;#121;&amp;#x75;&amp;#110;&amp;#64;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#109; 原创，转载请注明出处，谢谢。 今天中午实习生Wang同学和我">
-<meta name="keywords" content="实习生 未知属性 方法">
-<meta property="og:type" content="article">
-<meta property="og:title" content="写给实习生们:当你遇到未知属性、方法时第一篇">
-<meta property="og:url" content="http://heqingyun.com/2015/09/17/写给实习生们：当你遇到未知属性、方法时第一篇/index.html">
+  <meta name="description" content="榴莲芒果的开发随笔 developerqingyun@gmail.com">
+<meta property="og:type" content="website">
+<meta property="og:title" content="榴莲芒果的开发随笔">
+<meta property="og:url" content="http://heqingyun.com/archives/2017/index.html">
 <meta property="og:site_name" content="榴莲芒果的开发随笔">
-<meta property="og:description" content="原创声明：本文系作者 榴莲芒果 &amp;#x64;&amp;#x65;&amp;#118;&amp;#x65;&amp;#x6c;&amp;#x6f;&amp;#112;&amp;#x65;&amp;#114;&amp;#x71;&amp;#105;&amp;#110;&amp;#103;&amp;#121;&amp;#x75;&amp;#110;&amp;#64;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#109; 原创，转载请注明出处，谢谢。 今天中午实习生Wang同学和我">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%86%99%E7%BB%99%E5%AE%9E%E4%B9%A0%E7%94%9F%E4%BB%AC%20%E5%BD%93%E4%BD%A0%E9%81%87%E5%88%B0%E6%9C%AA%E7%9F%A5%E5%B1%9E%E6%80%A7%20%E6%96%B9%E6%B3%95%E6%97%B6%E7%AC%AC%E4%B8%80%E7%AF%87/01.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%86%99%E7%BB%99%E5%AE%9E%E4%B9%A0%E7%94%9F%E4%BB%AC%20%E5%BD%93%E4%BD%A0%E9%81%87%E5%88%B0%E6%9C%AA%E7%9F%A5%E5%B1%9E%E6%80%A7%20%E6%96%B9%E6%B3%95%E6%97%B6%E7%AC%AC%E4%B8%80%E7%AF%87/02.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%86%99%E7%BB%99%E5%AE%9E%E4%B9%A0%E7%94%9F%E4%BB%AC%20%E5%BD%93%E4%BD%A0%E9%81%87%E5%88%B0%E6%9C%AA%E7%9F%A5%E5%B1%9E%E6%80%A7%20%E6%96%B9%E6%B3%95%E6%97%B6%E7%AC%AC%E4%B8%80%E7%AF%87/03.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%86%99%E7%BB%99%E5%AE%9E%E4%B9%A0%E7%94%9F%E4%BB%AC%20%E5%BD%93%E4%BD%A0%E9%81%87%E5%88%B0%E6%9C%AA%E7%9F%A5%E5%B1%9E%E6%80%A7%20%E6%96%B9%E6%B3%95%E6%97%B6%E7%AC%AC%E4%B8%80%E7%AF%87/04.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%86%99%E7%BB%99%E5%AE%9E%E4%B9%A0%E7%94%9F%E4%BB%AC%20%E5%BD%93%E4%BD%A0%E9%81%87%E5%88%B0%E6%9C%AA%E7%9F%A5%E5%B1%9E%E6%80%A7%20%E6%96%B9%E6%B3%95%E6%97%B6%E7%AC%AC%E4%B8%80%E7%AF%87/05.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%86%99%E7%BB%99%E5%AE%9E%E4%B9%A0%E7%94%9F%E4%BB%AC%20%E5%BD%93%E4%BD%A0%E9%81%87%E5%88%B0%E6%9C%AA%E7%9F%A5%E5%B1%9E%E6%80%A7%20%E6%96%B9%E6%B3%95%E6%97%B6%E7%AC%AC%E4%B8%80%E7%AF%87/06.png?raw=true">
-<meta property="og:updated_time" content="2017-06-05T11:06:19.924Z">
+<meta property="og:description" content="榴莲芒果的开发随笔 developerqingyun@gmail.com">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="写给实习生们:当你遇到未知属性、方法时第一篇">
-<meta name="twitter:description" content="原创声明：本文系作者 榴莲芒果 &amp;#x64;&amp;#x65;&amp;#118;&amp;#x65;&amp;#x6c;&amp;#x6f;&amp;#112;&amp;#x65;&amp;#114;&amp;#x71;&amp;#105;&amp;#110;&amp;#103;&amp;#121;&amp;#x75;&amp;#110;&amp;#64;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#109; 原创，转载请注明出处，谢谢。 今天中午实习生Wang同学和我">
-<meta name="twitter:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%86%99%E7%BB%99%E5%AE%9E%E4%B9%A0%E7%94%9F%E4%BB%AC%20%E5%BD%93%E4%BD%A0%E9%81%87%E5%88%B0%E6%9C%AA%E7%9F%A5%E5%B1%9E%E6%80%A7%20%E6%96%B9%E6%B3%95%E6%97%B6%E7%AC%AC%E4%B8%80%E7%AF%87/01.png?raw=true">
+<meta name="twitter:title" content="榴莲芒果的开发随笔">
+<meta name="twitter:description" content="榴莲芒果的开发随笔 developerqingyun@gmail.com">
   
     <link rel="alternative" href="/atom.xml" title="榴莲芒果的开发随笔" type="application/atom+xml">
   
@@ -143,107 +134,43 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-写给实习生们：当你遇到未知属性、方法时第一篇" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
+            
+  
+  
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      写给实习生们:当你遇到未知属性、方法时第一篇
-    </h1>
-  
-
-        
-        <a href="/2015/09/17/写给实习生们：当你遇到未知属性、方法时第一篇/" class="archive-article-date">
-  	<time datetime="2015-09-17T12:07:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-09-17</time>
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/07/14/aa/" class="archive-article-date">
+  	<time datetime="2017-07-14T12:51:43.166Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-14</time>
 </a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>原创声明：本文系作者 <strong>榴莲芒果</strong> <a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#x64;&#x65;&#118;&#x65;&#x6c;&#x6f;&#112;&#x65;&#114;&#x71;&#105;&#110;&#103;&#121;&#x75;&#110;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x64;&#x65;&#118;&#x65;&#x6c;&#x6f;&#112;&#x65;&#114;&#x71;&#105;&#110;&#103;&#121;&#x75;&#110;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;</a> 原创，转载请注明出处，谢谢。</p>
-<p>今天中午实习生<code>Wang</code>同学和我一起吃饭时，跟他聊起在校大学生该如何自学<code>iOS</code>开发的话题，他的困惑主要在于遇到新属性和新方法时不知道该怎么开始学习。午饭后，我召集齐三位实习生，以<code>applicationIconBadgeNumber</code>属性“设置数据”为例给他们讲了一下，当年我自学<code>iOS</code>开发时遇到新属性和新方法时候是如何思考的。</p>
-<a id="more"></a>
-<p>当然，我的初衷并不仅仅是希望三位勤奋的实习生掌握这个属性的用法，而是希望他们能够从中学会一种思考的方式，学习能力是终身的，希望他们能尽快成长起来。</p>
-<p>实际开发中<code>applicationIconBadgeNumber</code>是通过远程通知和发送网络请求获得的，各个公司不同产品获取该属性的方式也不尽相同，取决于产品是如何设计的。本文所讲的<code>applicationIconBadgeNumber</code>属性数据的设置仅仅用于说明学习思路，并不适用于实际开发。</p>
-<p>以给<code>applicationIconBadgeNumber</code>属性设置数据为例，简单介绍当<code>iOS</code>初学者遇到新属性和新方法时，该如何解决的一点小思路。</p>
-<p>以下代码，并没有按照我们的设想，在程序运行后给应用程序的图标设置上提醒数字。</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%86%99%E7%BB%99%E5%AE%9E%E4%B9%A0%E7%94%9F%E4%BB%AC%20%E5%BD%93%E4%BD%A0%E9%81%87%E5%88%B0%E6%9C%AA%E7%9F%A5%E5%B1%9E%E6%80%A7%20%E6%96%B9%E6%B3%95%E6%97%B6%E7%AC%AC%E4%B8%80%E7%AF%87/01.png?raw=true" alt=""></p>
-<p>【思维】当出现这种问题时，首先想到的是cmd+属性名称，去头文件中查看系统是否对该属性做了某些特殊的规定。</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%86%99%E7%BB%99%E5%AE%9E%E4%B9%A0%E7%94%9F%E4%BB%AC%20%E5%BD%93%E4%BD%A0%E9%81%87%E5%88%B0%E6%9C%AA%E7%9F%A5%E5%B1%9E%E6%80%A7%20%E6%96%B9%E6%B3%95%E6%97%B6%E7%AC%AC%E4%B8%80%E7%AF%87/02.png?raw=true" alt=""></p>
-<p>由系统的注释我们发现<code>iOS8.0</code>及以后，必须使用一个<code>UIApplication</code>对象调用<code>registerUser Notification Settings</code>方法后，才能对<code>icon badge</code>进行设置。【思维】所以，接下来我们使用<code>app</code>对象调用<code>registerUserNotificationSettings</code>方法。</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%86%99%E7%BB%99%E5%AE%9E%E4%B9%A0%E7%94%9F%E4%BB%AC%20%E5%BD%93%E4%BD%A0%E9%81%87%E5%88%B0%E6%9C%AA%E7%9F%A5%E5%B1%9E%E6%80%A7%20%E6%96%B9%E6%B3%95%E6%97%B6%E7%AC%AC%E4%B8%80%E7%AF%87/03.png?raw=true" alt=""></p>
-<p>根据系统提示，我们需要给<code>registerUserNotificationSettings</code>方法传一个<code>UIUserNotificationSettings</code>类型的对象，但是我们现在并没有<code>UIUserNotificationSettings</code>类型的对象，【思维】所以必须先创建一个该类型的对象。</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%86%99%E7%BB%99%E5%AE%9E%E4%B9%A0%E7%94%9F%E4%BB%AC%20%E5%BD%93%E4%BD%A0%E9%81%87%E5%88%B0%E6%9C%AA%E7%9F%A5%E5%B1%9E%E6%80%A7%20%E6%96%B9%E6%B3%95%E6%97%B6%E7%AC%AC%E4%B8%80%E7%AF%87/04.png?raw=true" alt=""></p>
-<p>【思维】那么接下来要做的就是确定应该调用哪一个方法来创建一个<code>UIUserNotificationSettings</code>类型的对象了，这个时候我们可以模仿苹果给类方法命名的套路，依次尝试着敲<code>user</code>、<code>notification</code>、<code>set</code>，直到根据系统的提示敲出合适的方法为止，于是我们找到下列方法</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%86%99%E7%BB%99%E5%AE%9E%E4%B9%A0%E7%94%9F%E4%BB%AC%20%E5%BD%93%E4%BD%A0%E9%81%87%E5%88%B0%E6%9C%AA%E7%9F%A5%E5%B1%9E%E6%80%A7%20%E6%96%B9%E6%B3%95%E6%97%B6%E7%AC%AC%E4%B8%80%E7%AF%87/05.png?raw=true" alt=""></p>
-<p>【思维】那么接下来要做的事情就是给找到的上述方法传参数了，<code>UIUserNotificationType</code>明显是一个枚举类型，进入头文件中查找确定使用<code>UIUserNotificationTypeBadge</code>作为对象传递；另外一个参数不知道具体含义，又是<code>nullable</code>的，可以暂时先传<code>nil</code>。</p>
-<p>按照上述思路，代码修改为如下：</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%86%99%E7%BB%99%E5%AE%9E%E4%B9%A0%E7%94%9F%E4%BB%AC%20%E5%BD%93%E4%BD%A0%E9%81%87%E5%88%B0%E6%9C%AA%E7%9F%A5%E5%B1%9E%E6%80%A7%20%E6%96%B9%E6%B3%95%E6%97%B6%E7%AC%AC%E4%B8%80%E7%AF%87/06.png?raw=true" alt=""></p>
-<p>运行程序后，会有弹窗提示是否允许应用程序发送推送通知，点击“好”，再回到桌面，应用程序图标上就会出现提醒数字了。</p>
-<p>(全文结束）</p>
+        </div>
+    	 
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">实习生 未知属性 方法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2015/10/05/基于Runtime设置文本框占位文字颜色从猜想到实现/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          基于Runtime设置文本框占位文字颜色从猜想到实现
-        
-      </div>
-    </a>
   
   
-    <a href="/2014/11/17/记录今天解析JSON时遇到的报错/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">记录今天解析JSON时遇到的报错</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
+    
 
 
           </div>
@@ -266,8 +193,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
