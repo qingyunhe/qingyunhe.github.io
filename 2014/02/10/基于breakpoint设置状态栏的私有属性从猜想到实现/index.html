@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://heqingyun.com">
   <title>基于breakpoint设置状态栏的私有属性从猜想到实现 | 榴莲芒果的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原创声明：本文系作者 榴莲芒果 &amp;#x64;&amp;#x65;&amp;#x76;&amp;#x65;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#101;&amp;#x72;&amp;#113;&amp;#105;&amp;#110;&amp;#x67;&amp;#x79;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#x6d;&amp;#97;&amp;#105;&amp;#108;&amp;#46;&amp;#x63;&amp;#111;&amp;#x6d; 原创，转载请注明出处，谢谢。 本文简要记录我在使用brea">
+  <meta name="description" content="原创声明：本文系作者 榴莲芒果 &amp;#100;&amp;#101;&amp;#x76;&amp;#101;&amp;#x6c;&amp;#111;&amp;#112;&amp;#101;&amp;#114;&amp;#113;&amp;#105;&amp;#x6e;&amp;#103;&amp;#121;&amp;#117;&amp;#x6e;&amp;#64;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#x6d; 原创，转载请注明出处，谢谢。 本文简要记录我在使用break">
 <meta name="keywords" content="breakpoint,私有属性">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于breakpoint设置状态栏的私有属性从猜想到实现">
 <meta property="og:url" content="http://heqingyun.com/2014/02/10/基于breakpoint设置状态栏的私有属性从猜想到实现/index.html">
 <meta property="og:site_name" content="榴莲芒果的开发随笔">
-<meta property="og:description" content="原创声明：本文系作者 榴莲芒果 &amp;#x64;&amp;#x65;&amp;#x76;&amp;#x65;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#101;&amp;#x72;&amp;#113;&amp;#105;&amp;#110;&amp;#x67;&amp;#x79;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#x6d;&amp;#97;&amp;#105;&amp;#108;&amp;#46;&amp;#x63;&amp;#111;&amp;#x6d; 原创，转载请注明出处，谢谢。 本文简要记录我在使用brea">
+<meta property="og:description" content="原创声明：本文系作者 榴莲芒果 &amp;#100;&amp;#101;&amp;#x76;&amp;#101;&amp;#x6c;&amp;#111;&amp;#112;&amp;#101;&amp;#114;&amp;#113;&amp;#105;&amp;#x6e;&amp;#103;&amp;#121;&amp;#117;&amp;#x6e;&amp;#64;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#x6d; 原创，转载请注明出处，谢谢。 本文简要记录我在使用break">
 <meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true">
 <meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/002-768x139.png?raw=true">
 <meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/003-768x211.png?raw=true">
@@ -27,7 +27,7 @@
 <meta property="og:updated_time" content="2017-06-04T15:04:07.099Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于breakpoint设置状态栏的私有属性从猜想到实现">
-<meta name="twitter:description" content="原创声明：本文系作者 榴莲芒果 &amp;#x64;&amp;#x65;&amp;#x76;&amp;#x65;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#101;&amp;#x72;&amp;#113;&amp;#105;&amp;#110;&amp;#x67;&amp;#x79;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#x6d;&amp;#97;&amp;#105;&amp;#108;&amp;#46;&amp;#x63;&amp;#111;&amp;#x6d; 原创，转载请注明出处，谢谢。 本文简要记录我在使用brea">
+<meta name="twitter:description" content="原创声明：本文系作者 榴莲芒果 &amp;#100;&amp;#101;&amp;#x76;&amp;#101;&amp;#x6c;&amp;#111;&amp;#112;&amp;#101;&amp;#114;&amp;#113;&amp;#105;&amp;#x6e;&amp;#103;&amp;#121;&amp;#117;&amp;#x6e;&amp;#64;&amp;#x67;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#x6d; 原创，转载请注明出处，谢谢。 本文简要记录我在使用break">
 <meta name="twitter:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true">
   
     <link rel="alternative" href="/atom.xml" title="榴莲芒果的开发随笔" type="application/atom+xml">
@@ -166,7 +166,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>原创声明：本文系作者 <strong>榴莲芒果</strong> <a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#x64;&#x65;&#x76;&#x65;&#108;&#x6f;&#x70;&#101;&#x72;&#113;&#105;&#110;&#x67;&#x79;&#117;&#x6e;&#x40;&#103;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;">&#x64;&#x65;&#x76;&#x65;&#108;&#x6f;&#x70;&#101;&#x72;&#113;&#105;&#110;&#x67;&#x79;&#117;&#x6e;&#x40;&#103;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;</a> 原创，转载请注明出处，谢谢。</p>
+        <p>原创声明：本文系作者 <strong>榴莲芒果</strong> <a href="&#109;&#97;&#105;&#x6c;&#116;&#x6f;&#x3a;&#100;&#101;&#x76;&#101;&#x6c;&#111;&#112;&#101;&#114;&#113;&#105;&#x6e;&#103;&#121;&#117;&#x6e;&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;">&#100;&#101;&#x76;&#101;&#x6c;&#111;&#112;&#101;&#114;&#113;&#105;&#x6e;&#103;&#121;&#117;&#x6e;&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;</a> 原创，转载请注明出处，谢谢。</p>
 <p>本文简要记录我在使用<code>breakpoint</code>获取系统状态栏的私有属性，并定制系统状态栏的思路和实现过程.文中所有内容仅代表个人观点，本文对应代码见 <a href="https://github.com/qingyunhe/HQYModules" target="_blank" rel="external">https://github.com/qingyunhe/HQYModules</a>，如有疏漏，欢迎与我进行深入浅出的交流 <a href="developerqingyun@gmail.com">developerqingyun@gmail.com</a>。</p>
 <a id="more"></a>
 <p><code>iOS</code>系统状态栏背景颜色默认为透明色，状态栏默认从左往右依次显示运营商、网络状态、系统时间和电量。如果有项目需要修改这些系统自带设置，我们可以使用<code>breakpoint</code>来获取这些系统默认的属性，然后根据项目需求进行相应的定制。</p>
