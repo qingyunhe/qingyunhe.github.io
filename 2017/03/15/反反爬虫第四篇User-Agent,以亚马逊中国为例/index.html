@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://heqingyun.com">
   <title>反反爬虫第四篇:User-Agent,以亚马逊中国为例 | 榴莲芒果的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="声明：本文系作者 榴莲芒果 &amp;#100;&amp;#x65;&amp;#x76;&amp;#x65;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#101;&amp;#x72;&amp;#113;&amp;#x69;&amp;#110;&amp;#x67;&amp;#x79;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#109; 学习北京理工大学嵩天老师爬虫课程的笔记。">
+  <meta name="description" content="声明：本文系作者 榴莲芒果 &amp;#100;&amp;#x65;&amp;#118;&amp;#101;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#101;&amp;#114;&amp;#113;&amp;#105;&amp;#110;&amp;#x67;&amp;#121;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d; 学习北京理工大学嵩天老师爬虫课程的笔记。">
 <meta name="keywords" content="反反爬虫 亚马逊中国 User-Agent">
 <meta property="og:type" content="article">
 <meta property="og:title" content="反反爬虫第四篇:User-Agent,以亚马逊中国为例">
 <meta property="og:url" content="http://heqingyun.com/2017/03/15/反反爬虫第四篇User-Agent,以亚马逊中国为例/index.html">
 <meta property="og:site_name" content="榴莲芒果的开发随笔">
-<meta property="og:description" content="声明：本文系作者 榴莲芒果 &amp;#100;&amp;#x65;&amp;#x76;&amp;#x65;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#101;&amp;#x72;&amp;#113;&amp;#x69;&amp;#110;&amp;#x67;&amp;#x79;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#109; 学习北京理工大学嵩天老师爬虫课程的笔记。">
+<meta property="og:description" content="声明：本文系作者 榴莲芒果 &amp;#100;&amp;#x65;&amp;#118;&amp;#101;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#101;&amp;#114;&amp;#113;&amp;#105;&amp;#110;&amp;#x67;&amp;#121;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d; 学习北京理工大学嵩天老师爬虫课程的笔记。">
 <meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/爬虫/反反爬虫/第四篇/01亚马逊中国.png?raw=true">
 <meta property="og:updated_time" content="2017-08-12T13:45:42.339Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="反反爬虫第四篇:User-Agent,以亚马逊中国为例">
-<meta name="twitter:description" content="声明：本文系作者 榴莲芒果 &amp;#100;&amp;#x65;&amp;#x76;&amp;#x65;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#101;&amp;#x72;&amp;#113;&amp;#x69;&amp;#110;&amp;#x67;&amp;#x79;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#46;&amp;#x63;&amp;#111;&amp;#109; 学习北京理工大学嵩天老师爬虫课程的笔记。">
+<meta name="twitter:description" content="声明：本文系作者 榴莲芒果 &amp;#100;&amp;#x65;&amp;#118;&amp;#101;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#101;&amp;#114;&amp;#113;&amp;#105;&amp;#110;&amp;#x67;&amp;#121;&amp;#x75;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#108;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d; 学习北京理工大学嵩天老师爬虫课程的笔记。">
 <meta name="twitter:image" content="https://github.com/qingyunhe/BlogImages/blob/master/爬虫/反反爬虫/第四篇/01亚马逊中国.png?raw=true">
   
     <link rel="alternative" href="/atom.xml" title="榴莲芒果的开发随笔" type="application/atom+xml">
@@ -158,7 +158,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>声明：本文系作者 <strong>榴莲芒果</strong> <a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#100;&#x65;&#x76;&#x65;&#108;&#x6f;&#x70;&#101;&#x72;&#113;&#x69;&#110;&#x67;&#x79;&#x75;&#x6e;&#x40;&#103;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">&#100;&#x65;&#x76;&#x65;&#108;&#x6f;&#x70;&#101;&#x72;&#113;&#x69;&#110;&#x67;&#x79;&#x75;&#x6e;&#x40;&#103;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a> 学习北京理工大学嵩天老师爬虫课程的笔记。</p>
+        <p>声明：本文系作者 <strong>榴莲芒果</strong> <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#100;&#x65;&#118;&#101;&#108;&#x6f;&#x70;&#101;&#114;&#113;&#105;&#110;&#x67;&#121;&#x75;&#x6e;&#x40;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;">&#100;&#x65;&#118;&#101;&#108;&#x6f;&#x70;&#101;&#114;&#113;&#105;&#110;&#x67;&#121;&#x75;&#x6e;&#x40;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;</a> 学习北京理工大学嵩天老师爬虫课程的笔记。</p>
 <a id="more"></a>
 <h2 id="写在开篇"><a href="#写在开篇" class="headerlink" title="写在开篇"></a>写在开篇</h2><p>通过User-Agent的设置，突破亚马逊中国网站的初步反爬虫策略。本文是我在学习北京理工大学嵩天老师爬虫课程中所做的笔记，感谢嵩天等老师的付出。</p>
 <h2 id="进入正文"><a href="#进入正文" class="headerlink" title="进入正文"></a>进入正文</h2><p>进入<a href="https://www.amazon.cn/" target="_blank" rel="external">亚马逊中国</a>主页,以”python网络数据采集”为关键词搜索,点击第一条搜索结果。</p>
@@ -177,7 +177,7 @@
 <p>将代码修改为如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line"></div><div class="line">def getHTMLText(url):</div><div class="line">    try:</div><div class="line">        user_agent = &#123;&apos;User-Agent&apos;: &apos;Mozilla/5.0&apos;&#125;</div><div class="line">        r = requests.get(url, timeout = 30, headers = user_agent)</div><div class="line">        r.raise_for_status()</div><div class="line">        r.encoding = r.apparent_encoding</div><div class="line">        print(r.status_code)</div><div class="line">        return r.text</div><div class="line">    except:</div><div class="line">        print(&apos;status_code: &apos; + str(r.status_code))</div><div class="line">        print(r.request.headers)</div><div class="line">        return (url + &apos;请求异常&apos;)</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    url = &apos;https://www.amazon.cn/图书/dp/B01DU8CXJ4/&apos; \</div><div class="line">          &apos;ref=sr_1_1?ie=UTF8&amp;qid=1502531924&amp;sr=8-1&amp;keywords=python网络数据采集&apos;</div><div class="line">    print(getHTMLText(url))</div></pre></td></tr></table></figure>
 <p>这样就能成功获取到亚马逊中国商品网页的html代码了。</p>
-<p>本文结束，持续更新。欢迎大家与我进行深入浅出的交流 <a href="&#109;&#x61;&#x69;&#108;&#x74;&#111;&#58;&#100;&#101;&#118;&#x65;&#x6c;&#x6f;&#x70;&#x65;&#x72;&#113;&#105;&#110;&#x67;&#121;&#117;&#x6e;&#64;&#x67;&#109;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#100;&#101;&#118;&#x65;&#x6c;&#x6f;&#x70;&#x65;&#x72;&#113;&#105;&#110;&#x67;&#121;&#117;&#x6e;&#64;&#x67;&#109;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a></p>
+<p>本文结束，持续更新。欢迎大家与我进行深入浅出的交流 <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#100;&#101;&#x76;&#x65;&#108;&#111;&#112;&#x65;&#x72;&#113;&#x69;&#x6e;&#x67;&#x79;&#x75;&#110;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#111;&#x6d;">&#100;&#101;&#x76;&#x65;&#108;&#111;&#112;&#x65;&#x72;&#113;&#x69;&#x6e;&#x67;&#x79;&#x75;&#110;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#111;&#x6d;</a></p>
 <hr>
 
       
