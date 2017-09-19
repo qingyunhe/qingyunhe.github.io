@@ -6,29 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://heqingyun.com">
-  <title>基于breakpoint设置状态栏的私有属性从猜想到实现 | 榴莲芒果的开发随笔</title>
+  <title>Tag: Robots协议 | 榴莲芒果的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原创声明：本文系作者 榴莲芒果 &amp;#x64;&amp;#101;&amp;#118;&amp;#x65;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#x65;&amp;#x72;&amp;#113;&amp;#105;&amp;#x6e;&amp;#103;&amp;#x79;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109; 原创，转载请注明出处，谢谢。 本文简要记录我在使用break">
-<meta name="keywords" content="breakpoint,私有属性">
-<meta property="og:type" content="article">
-<meta property="og:title" content="基于breakpoint设置状态栏的私有属性从猜想到实现">
-<meta property="og:url" content="http://heqingyun.com/2014/02/10/基于breakpoint设置状态栏的私有属性从猜想到实现/index.html">
+  <meta name="description" content="榴莲芒果的开发随笔 developerqingyun@gmail.com">
+<meta property="og:type" content="website">
+<meta property="og:title" content="榴莲芒果的开发随笔">
+<meta property="og:url" content="http://heqingyun.com/tags/Robots协议/index.html">
 <meta property="og:site_name" content="榴莲芒果的开发随笔">
-<meta property="og:description" content="原创声明：本文系作者 榴莲芒果 &amp;#x64;&amp;#101;&amp;#118;&amp;#x65;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#x65;&amp;#x72;&amp;#113;&amp;#105;&amp;#x6e;&amp;#103;&amp;#x79;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109; 原创，转载请注明出处，谢谢。 本文简要记录我在使用break">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/002-768x139.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/003-768x211.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/004-169x300.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/005-768x649.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/006-768x582.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/007-768x198.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/008-768x277.png?raw=true">
-<meta property="og:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/009.png?raw=true">
-<meta property="og:updated_time" content="2017-06-04T15:04:07.099Z">
+<meta property="og:description" content="榴莲芒果的开发随笔 developerqingyun@gmail.com">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="基于breakpoint设置状态栏的私有属性从猜想到实现">
-<meta name="twitter:description" content="原创声明：本文系作者 榴莲芒果 &amp;#x64;&amp;#101;&amp;#118;&amp;#x65;&amp;#108;&amp;#x6f;&amp;#x70;&amp;#x65;&amp;#x72;&amp;#113;&amp;#105;&amp;#x6e;&amp;#103;&amp;#x79;&amp;#117;&amp;#x6e;&amp;#x40;&amp;#103;&amp;#109;&amp;#97;&amp;#105;&amp;#108;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109; 原创，转载请注明出处，谢谢。 本文简要记录我在使用break">
-<meta name="twitter:image" content="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true">
+<meta name="twitter:title" content="榴莲芒果的开发随笔">
+<meta name="twitter:description" content="榴莲芒果的开发随笔 developerqingyun@gmail.com">
   
     <link rel="alternative" href="/atom.xml" title="榴莲芒果的开发随笔" type="application/atom+xml">
   
@@ -146,110 +134,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-基于breakpoint设置状态栏的私有属性从猜想到实现" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      基于breakpoint设置状态栏的私有属性从猜想到实现
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2015" class="archive-year">2015</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2015/11/17/Robots协议/" class="archive-article-date">
+  	<time datetime="2015-11-17T15:05:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-17</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2015/11/17/Robots协议/">Robots协议基本概念及规则</a>
     </h1>
   
 
-        
-        <a href="/2014/02/10/基于breakpoint设置状态栏的私有属性从猜想到实现/" class="archive-article-date">
-  	<time datetime="2014-02-10T15:08:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-02-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>原创声明：本文系作者 <strong>榴莲芒果</strong> <a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#x3a;&#x64;&#101;&#118;&#x65;&#108;&#x6f;&#x70;&#x65;&#x72;&#113;&#105;&#x6e;&#103;&#x79;&#117;&#x6e;&#x40;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#x6f;&#109;">&#x64;&#101;&#118;&#x65;&#108;&#x6f;&#x70;&#x65;&#x72;&#113;&#105;&#x6e;&#103;&#x79;&#117;&#x6e;&#x40;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#x6f;&#109;</a> 原创，转载请注明出处，谢谢。</p>
-<p>本文简要记录我在使用<code>breakpoint</code>获取系统状态栏的私有属性，并定制系统状态栏的思路和实现过程.文中所有内容仅代表个人观点，本文对应代码见 <a href="https://github.com/qingyunhe/HQYModules" target="_blank" rel="external">https://github.com/qingyunhe/HQYModules</a>，如有疏漏，欢迎与我进行深入浅出的交流 <a href="developerqingyun@gmail.com">developerqingyun@gmail.com</a>。</p>
-<a id="more"></a>
-<p><code>iOS</code>系统状态栏背景颜色默认为透明色，状态栏默认从左往右依次显示运营商、网络状态、系统时间和电量。如果有项目需要修改这些系统自带设置，我们可以使用<code>breakpoint</code>来获取这些系统默认的属性，然后根据项目需求进行相应的定制。</p>
-<p><strong>收到需求</strong>：修改系统状态栏的运营商、网络状态、系统时间和电量等。</p>
-<p><strong>提出猜想</strong>：系统状态栏的运营商，网络状态，系统时间和电量一般很少作修改，猜想这些属性是系统的私有属性，猜想这些属性应该属于<code>UIApplication</code>对象。</p>
-<p><strong>验证猜想</strong>：进入<code>UIApplication</code>类的头文件中,以<code>StatusBar</code>为关键词进行查找。根据查询结果，系统状态栏相关的属性全部是<code>readonly</code>修饰的，而且系统虽然给我们提供了一个<code>UIStatusBar</code>类，但是系统并没有在这个类中暴露任何属性和API给我们，这就验证了我们的猜想：状态栏的运营商、网络状态等属性是系统的私有属性。</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/001.png?raw=true" alt=""></p>
-<p>那么下面我们要做的事情就是先通过<code>KVC</code>拿到<code>UIStatusBar</code>类型的对象，然后基于<code>breakpoint</code>查看该对象的所有属性，再去查找我们需要进行相关设置的属性。那么问题又来了：要使用<code>KVC</code>，首先我们得拿到对应的<code>key</code>值，我们怎么知道<code>key</code>值是啥？思路：去<code>UIApplication</code>类的头文件中<code>StatusBar</code>为关键词进行查找。</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/002-768x139.png?raw=true" alt=""></p>
-<p>根据找到的属性的名称，我推测<code>UIStatusBar</code>的对象的名称是<code>statusBar</code>，然后尝试着使用<code>KVC</code>拿到<code>UIStatusBar</code>的对象，并设置<code>UIStatusBar</code>对象的<code>frame</code>。</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/003-768x211.png?raw=true" alt=""></p>
-<p>运行结果如下图：</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/004-169x300.png?raw=true" alt=""></p>
-<p>说明我们猜想正确，可以通过<code>statusBar</code>作为<code>key</code>值使用<code>KVC</code>拿到<code>UIStatusBar</code>对象。下面我们就可以使用<code>breakpoint</code>来查看<code>UIStatusBar</code>对象的所有属性，并拿到相应的属性做相应设置了。从下图中可以看出<code>UIStatusBarBackgroudview</code>没有子控件。</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/005-768x649.png?raw=true" alt=""></p>
-<p>从下图中可以看出<code>UIStatusBarForegroudview</code>中有四个子控件，分别对应网络服务商名称、网络信号、电池电量和系统时间。</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/006-768x582.png?raw=true" alt=""></p>
-<p>下面我们来对这些属性进行修改.先拿到<code>UIStatusBarForegroundView</code>对象。</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/007-768x198.png?raw=true" alt=""></p>
-<p>再对系统状态栏的私有属性进行个性化设置（以网络服务商为例）</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/008-768x277.png?raw=true" alt=""></p>
-<p>运行结果见下图：</p>
-<p><img src="https://github.com/qingyunhe/BlogImages/blob/master/%E5%9F%BA%E4%BA%8Ebreakpoint%E8%AE%BE%E7%BD%AE%E7%8A%B6%E6%80%81%E6%A0%8F%E7%9A%84%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7%E4%BB%8E%E7%8C%9C%E6%83%B3%E5%88%B0%E5%AE%9E%E7%8E%B0/009.png?raw=true" alt=""></p>
-<p>按照以上过程走下来，我们就完成自定义系统状态栏了（本文结束）。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">breakpoint</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">私有属性</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Robots协议</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2014/10/07/数据结构的基本概念/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          数据结构的基本概念
-        
-      </div>
-    </a>
   
   
-</nav>
-
-
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
+    
 
 
           </div>
@@ -272,9 +210,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
